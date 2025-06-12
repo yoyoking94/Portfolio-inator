@@ -40,7 +40,7 @@ export default function App() {
       }}
     >
       <Header />
-      <Nav darkerBackground={currentTheme.darkerBackground} />
+      <Nav darkerBackground={currentTheme.darkerBackground} theme={theme} />
       <Main className="flex flex-col">
         <Section id="formations" title="Formations" />
         <Section id="experiences" title="Expériences" />
