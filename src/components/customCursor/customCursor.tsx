@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import './customCursor.css'
 
 const CustomCursor = () => {
     useEffect(() => {

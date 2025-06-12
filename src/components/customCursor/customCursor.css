@@ -1,0 +1,26 @@
+/* Custom Cursor */
+.cursorDot {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+  }
+  
+  .cursorOutline {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+  }
+  
+  .cursorDot,
+  .cursorOutline {
+    mix-blend-mode: difference;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s ease-in-out;
+  }
+  

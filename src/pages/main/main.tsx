@@ -1,12 +1,17 @@
-import React from 'react';
+import React from "react";
 
 type MainProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
-const Main: React.FC<MainProps> = ({ children }) => {
+const Main: React.FC<MainProps> = ({ children, className }) => {
   return (
-    <main className='h-screen w-screen flex items-center justify-center border'>
+    <main
+      className={`w-screen flex items-center justify-center ${
+        className || ""
+      }`}
+    >
       {children}
     </main>
   );
