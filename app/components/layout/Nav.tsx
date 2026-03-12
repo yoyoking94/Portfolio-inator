@@ -29,7 +29,6 @@ const Nav = () => {
             className="sticky top-0 w-full h-[8dvh] flex items-center justify-between z-[9999] bg-white border-b-2 border-black"
             style={{ padding: '0 5%' }}
         >
-            {/* ── Logo ── */}
             <a href="#" className="flex items-center h-full py-1">
                 <Image
                     alt="logo"
@@ -40,7 +39,6 @@ const Nav = () => {
                 />
             </a>
 
-            {/* ── Menu desktop ── */}
             <ul className="hidden md:flex gap-7">
                 {navLinks.map((link) => (
                     <li key={link.href}>
@@ -54,25 +52,21 @@ const Nav = () => {
                 ))}
             </ul>
 
-            {/* ── Burger / Croix mobile ── */}
             <button
                 className="relative flex flex-col items-center justify-center w-8 h-8 md:hidden z-[10000] focus:outline-none cursor-none hoverable"
                 aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
                 onClick={() => setOpen((o) => !o)}
             >
-                {/* Barre 1 */}
                 <div
                     className={`absolute w-8 h-0.5 bg-black transition-all duration-300
                         ${open ? "rotate-45 top-3.5" : "top-2"}
                     `}
                 />
-                {/* Barre 2 */}
                 <div
                     className={`absolute w-8 h-0.5 bg-black transition-all duration-300
                         ${open ? "-rotate-45 top-3.5" : "top-5"}
                     `}
                 />
-                {/* Barre 3 */}
                 <div
                     className={`absolute w-8 h-0.5 bg-black transition-all duration-300
                         ${open ? "opacity-0" : "top-3.5"}
@@ -80,7 +74,6 @@ const Nav = () => {
                 />
             </button>
 
-            {/* ── Overlay menu mobile ── */}
             <div
                 className={`fixed inset-0 z-[9998] bg-white flex flex-col items-center justify-center gap-8 transition-all duration-300
                     ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}

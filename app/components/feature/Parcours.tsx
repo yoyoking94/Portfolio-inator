@@ -11,7 +11,6 @@ interface ParcoursProps {
     experiences: Experience[];
 }
 
-// ── Sous-composant : détail d'une expérience avec onglets ──────────
 function ExperienceCard({ exp }: { exp: Experience }) {
     type ExpTab = "Infos" | "Tâches";
     const availableTabs: ExpTab[] = [
@@ -25,14 +24,12 @@ function ExperienceCard({ exp }: { exp: Experience }) {
             className="border-2 border-black flex flex-col"
             style={{ width: '100%', minHeight: '180px', margin: '5px 0', padding: '10px' }}
         >
-            {/* ── Header ── */}
             <div className="p-2 shrink-0">
                 <h4 className="uppercase tracking-widest font-bold text-sm md:text-base">
                     {exp.poste} — {exp.entreprise}
                 </h4>
             </div>
 
-            {/* ── Onglets internes ── */}
             {availableTabs.length > 1 && (
                 <div className="flex flex-wrap shrink-0">
                     {availableTabs.map((tab) => (
@@ -53,8 +50,7 @@ function ExperienceCard({ exp }: { exp: Experience }) {
                 </div>
             )}
 
-            {/* ── Contenu scrollable ── */}
-            <div className="p-2 overflow-y-auto flex-1" style={{ maxHeight: '130px' }}>
+            <div className="p-2 overflow-y-auto flex-1">
                 {activeTab === "Infos" && (
                     <div className="space-y-1 text-sm">
                         <p>
@@ -85,7 +81,6 @@ function ExperienceCard({ exp }: { exp: Experience }) {
     );
 }
 
-// ── Sous-composant : détail d'une formation avec onglets ───────────
 function FormationCard({ formation }: { formation: Formation }) {
     type FormTab = "Infos" | "Cours" | "Établissement";
     const availableTabs: FormTab[] = [
@@ -100,14 +95,12 @@ function FormationCard({ formation }: { formation: Formation }) {
             className="border-2 border-black flex flex-col"
             style={{ width: '100%', minHeight: '180px', margin: '5px 0', padding: '10px' }}
         >
-            {/* ── Header ── */}
             <div className="p-2 shrink-0">
                 <h4 className="uppercase tracking-widest font-bold text-sm md:text-base">
                     {formation.diplome} — {formation.etablissement}
                 </h4>
             </div>
 
-            {/* ── Onglets internes ── */}
             {availableTabs.length > 1 && (
                 <div className="flex flex-wrap shrink-0">
                     {availableTabs.map((tab) => (
@@ -128,8 +121,7 @@ function FormationCard({ formation }: { formation: Formation }) {
                 </div>
             )}
 
-            {/* ── Contenu scrollable ── */}
-            <div className="p-2 overflow-y-auto flex-1" style={{ maxHeight: '130px' }}>
+            <div className="p-2 overflow-y-auto flex-1">
                 {activeTab === "Infos" && (
                     <div className="space-y-1 text-sm">
                         <p>

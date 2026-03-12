@@ -3,6 +3,14 @@
 import { GitHubRepo, ReadmeContent } from '@/app/types';
 import { useEffect, useState } from 'react';
 
+const PROJECT_TO_COMPETENCES: Record<string, { techniques: string[]; comportementales: string[] }> = {
+    "log-inator": { techniques: ["JavaScript", "NoSQL"], comportementales: ["Planification", "Priorisation"] },
+    "fitness-inator": { techniques: ["TypeScript"], comportementales: ["Autonomie", "Gestion du temps"] },
+    "password-inator-2": { techniques: ["Python"], comportementales: ["Discipline"] },
+    "porfolio-inator": { techniques: ["TypeScript", "SQL"], comportementales: ["Adaptabilité"] },
+    "diet-inator": { techniques: ["NoSQL"], comportementales: ["Résilience"] },
+};
+
 type ReadmeTab = keyof ReadmeContent;
 const README_TABS: { key: ReadmeTab; label: string }[] = [
     { key: 'presentation', label: 'Présentation' },
@@ -25,9 +33,8 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
     return (
         <article
             className="border-2 border-black flex flex-col"
-            style={{ minHeight: '250px', maxHeight: '400px', margin: '5px 0' }}
+            style={{ minHeight: '250px', margin: '10px 0 0 0' }}
         >
-            {/* ── Header ── */}
             <div
                 className="flex flex-wrap items-center justify-between border-b-2 border-black shrink-0 gap-2"
                 style={{ padding: '8px 12px' }}
@@ -36,9 +43,13 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
                     <h3 className="uppercase tracking-widest font-bold text-sm md:text-base">
                         {repo.name}
                     </h3>
-                    {repo.language && (
+                    {repo.language ? (
                         <span className="border-l border-black text-xs" style={{ padding: '2px 8px' }}>
                             {repo.language}
+                        </span>
+                    ) : (
+                        <span className="border-l border-black text-xs" style={{ padding: '2px 8px' }}>
+                            NoSQL
                         </span>
                     )}
                     {repo.stargazers_count > 0 && (
@@ -69,14 +80,12 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
                 </div>
             </div>
 
-            {/* ── Description ── */}
             {repo.description && (
                 <p className="text-xs md:text-sm shrink-0" style={{ padding: '6px 12px' }}>
                     {repo.description}
                 </p>
             )}
 
-            {/* ── Onglets README ── */}
             {availableTabs.length > 0 ? (
                 <>
                     <div className="flex flex-wrap border-b border-black shrink-0">
@@ -96,11 +105,9 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
                             </button>
                         ))}
                     </div>
-
-                    {/* ── Contenu scrollable ── */}
                     <div
                         className="overflow-y-auto flex-1 text-xs md:text-sm leading-relaxed whitespace-pre-wrap"
-                        style={{ padding: '8px 12px' }}
+                        style={{ padding: '8px 12px', maxHeight: '200px' }}
                     >
                         {repo.readme?.[activeTab] ?? (
                             <span className="opacity-50">Non renseigné</span>
@@ -116,11 +123,75 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
     );
 }
 
+function CompetencesLiees({
+    repoName,
+    onSelectItem,
+    onSelectComportementale,
+}: {
+    repoName: string;
+    onSelectItem: (nom: string) => void;
+    onSelectComportementale: (nom: string) => void;
+}) {
+    const competences = PROJECT_TO_COMPETENCES[repoName.toLowerCase()] ?? null;
+    if (!competences) return null;
+
+    return (
+        <div className="border-2 border-black border-t-0 flex flex-col gap-3" style={{ padding: '12px' }}>
+            <p className="uppercase tracking-widest text-xs font-bold">Compétences liées</p>
+
+            {competences.techniques.length > 0 && (
+                <div className="flex flex-col gap-1">
+                    <p className="uppercase tracking-widest text-xs opacity-60">Techniques</p>
+                    <div className="flex flex-wrap gap-2">
+                        {competences.techniques.map((nom) => (
+                            <button
+                                key={nom}
+                                onClick={() => onSelectItem(nom)}
+                                style={{ padding: '3px 12px' }}
+                                className="border border-black text-xs hoverable cursor-none hover:bg-black hover:text-white uppercase tracking-widest"
+                            >
+                                {nom}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {competences.comportementales.length > 0 && (
+                <div className="flex flex-col gap-1">
+                    <p className="uppercase tracking-widest text-xs opacity-60">Comportementales</p>
+                    <div className="flex flex-wrap gap-2">
+                        {competences.comportementales.map((nom) => (
+                            <button
+                                key={nom}
+                                onClick={() => onSelectComportementale(nom)}
+                                style={{ padding: '3px 12px' }}
+                                className="border border-black text-xs hoverable cursor-none hover:bg-black hover:text-white uppercase tracking-widest"
+                            >
+                                {nom}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
 const Projets = () => {
     const [repos, setRepos] = useState<GitHubRepo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeRepo, setActiveRepo] = useState<number | null>(null);
+
+    function scrollToCompetence(section: 'techniques' | 'comportementales', nom: string) {
+        const el = document.getElementById('competences');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+
+        window.dispatchEvent(new CustomEvent('selectCompetence', {
+            detail: { section, nom }
+        }));
+    }
 
     useEffect(() => {
         fetch('/api/github')
@@ -148,8 +219,6 @@ const Projets = () => {
             </h2>
 
             <div className="w-full" style={{ padding: '0 10px' }}>
-
-                {/* ── Onglets repos ── */}
                 <div className="flex flex-wrap gap-1 mb-3">
                     {repos.map((repo) => (
                         <button
@@ -168,9 +237,16 @@ const Projets = () => {
                     ))}
                 </div>
 
-                {/* ── Card ── */}
-                {selectedRepo && <RepoCard repo={selectedRepo} />}
-
+                {selectedRepo && (
+                    <>
+                        <RepoCard repo={selectedRepo} />
+                        <CompetencesLiees
+                            repoName={selectedRepo.name}
+                            onSelectItem={(nom) => scrollToCompetence('techniques', nom)}
+                            onSelectComportementale={(nom) => scrollToCompetence('comportementales', nom)}
+                        />
+                    </>
+                )}
             </div>
         </section>
     );

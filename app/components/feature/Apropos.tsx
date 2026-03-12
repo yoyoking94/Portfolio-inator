@@ -26,12 +26,10 @@ const Apropos = ({ profil }: AproposProps) => {
                 À propos de moi
             </h2>
 
-            {/* ── Bio ── */}
             <p className="text-sm md:text-base leading-relaxed" style={{ marginBottom: '16px' }}>
                 {profil.bio}
             </p>
 
-            {/* ── Onglets ── */}
             <div className="flex flex-wrap" style={{ marginTop: '20px' }}>
                 {tab_list.map((tab) => (
                     <button
@@ -50,10 +48,9 @@ const Apropos = ({ profil }: AproposProps) => {
                 ))}
             </div>
 
-            {/* ── Contenu ── */}
             <article
                 className="overflow-y-auto"
-                style={{ minHeight: '120px', maxHeight: '350px', padding: '25px 0' }}
+                style={{ minHeight: '120px', padding: '25px 0' }}
             >
                 <p className="leading-relaxed whitespace-pre-wrap text-sm md:text-base">
                     {tabContent[activeTab]}
