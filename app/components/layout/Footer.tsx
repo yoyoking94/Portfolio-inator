@@ -13,19 +13,19 @@ const Footer = () => {
             <div className='flex flex-wrap justify-center md:justify-end gap-3'>
                 <Link
                     href="/mentions-legales"
-                    className="hover:underline transition cursor-none hoverable whitespace-nowrap"
+                    className="transition cursor-none hoverable whitespace-nowrap"
                 >
                     Mentions légales
                 </Link>
                 <Link
                     href="/politique-confidentialite"
-                    className="hover:underline transition cursor-none hoverable whitespace-nowrap"
+                    className="transition cursor-none hoverable whitespace-nowrap"
                 >
                     Politique de confidentialité
                 </Link>
                 <Link
                     href="/conditions-utilisation"
-                    className="hover:underline transition cursor-none hoverable whitespace-nowrap"
+                    className="transition cursor-none hoverable whitespace-nowrap"
                 >
                     Conditions d&apos;utilisation
                 </Link>

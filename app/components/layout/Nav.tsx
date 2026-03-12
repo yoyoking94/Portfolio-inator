@@ -5,11 +5,11 @@ import Image from "next/image";
 import logo from "@/public/yovish-space-logo-black.svg";
 
 const navLinks = [
-    { label: "Présentation", href: "#presentation" },
-    { label: "Compétences", href: "#competences" },
-    { label: "Parcours", href: "#parcours" },
-    { label: "Projets", href: "#projets" },
-    { label: "Contact", href: "#contact" },
+    { label: "Présentation", href: "/#presentation" },
+    { label: "Compétences", href: "/#competences" },
+    { label: "Parcours", href: "/#parcours" },
+    { label: "Projets", href: "/#projets" },
+    { label: "Contact", href: "/#contact" },
 ];
 
 const Nav = () => {
@@ -85,7 +85,7 @@ const Nav = () => {
                         key={link.href}
                         href={link.href}
                         onClick={() => setOpen(false)}
-                        className="uppercase tracking-widest text-2xl font-bold cursor-none hoverable hover:underline"
+                        className="uppercase tracking-widest text-2xl font-bold cursor-none hoverable"
                     >
                         {link.label}
                     </a>
