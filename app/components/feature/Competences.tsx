@@ -9,8 +9,8 @@ import nosql from '@/public/svg/nosql.svg'
 
 const Competences = () => {
     return (
-        <section id="competences" className='min-h-dvh w-full flex flex-col items-center justify-center scroll-mt-[8dvh]'>
-            <h2 className='my-10'>Compétences</h2>
+        <section>
+            <h2 className='text-center'>Compétences</h2>
             <div>
                 <article>
                     <h3 className='py-5'>Technique : </h3>

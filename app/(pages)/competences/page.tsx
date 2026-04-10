@@ -8,7 +8,7 @@ const CompetencesPage = () => {
         <>
             <CustomCursor />
             <Nav />
-            <main className="min-h-dvh flex flex-col items-center justify-center py-20">
+            <main className="min-h-[84dvh] flex flex-col items-center justify-center">
                 <Competences />
             </main>
             <Footer />

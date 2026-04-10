@@ -13,25 +13,25 @@ const PresentationPage = async () => {
         <>
             <CustomCursor />
             <Nav />
-            <main className="min-h-dvh flex flex-col items-center justify-center py-50">
+            <main className="min-h-dvh flex flex-col items-center justify-center py-20">
                 <h2 className='text-center'>Présentation</h2>
                 <section>
-                    <article className='py-10'>
+                    <article className='py-5'>
                         <h3>Mes valeurs :</h3>
                         <p className='py-5 text-justify'>{profil.valeurs}</p>
                     </article>
 
-                    <article className='py-10'>
+                    <article className='py-5'>
                         <h3>Mon projet :</h3>
                         <p className='pt-5 text-justify'>{profil.projet}</p>
                     </article>
 
-                    <article className='py-10'>
+                    <article className='py-5'>
                         <h3>Mes qualités :</h3>
                         <p className='pt-5 text-justify'>{profil.qualitees}</p>
                     </article>
 
-                    <article className='py-10'>
+                    <article className='py-5'>
                         <h3>Mes centres d&apos;intérêts :</h3>
                         {centresInteret.length > 0 ? (
                             <ul className='pt-5 flex flex-wrap gap-3'>

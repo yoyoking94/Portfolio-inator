@@ -353,7 +353,7 @@ const ParcoursPage = () => {
         <>
             <CustomCursor />
             <Nav />
-            <main className="min-h-dvh flex flex-col items-center justify-center py-50">
+            <main className="min-h-[84dvh] flex flex-col items-center justify-center py-20">
                 <h2 className='text-center'>Parcours</h2>
                 <section className="cd-horizontal-timeline">
                     <div className="timeline">
@@ -361,42 +361,42 @@ const ParcoursPage = () => {
                             <div className="events">
                                 <ol>
                                     <li>
-                                        <a href="#0" data-date="16/01/2014" className="selected">
+                                        <a href="#0" data-date="16/01/2014" className="selected hoverable">
                                             16 Jan
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="28/02/2014">
+                                        <a href="#0" data-date="28/02/2014" className="hoverable">
                                             28 Feb
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="20/04/2014">
+                                        <a href="#0" data-date="20/04/2014" className="hoverable">
                                             20 Mar
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="20/05/2014">
+                                        <a href="#0" data-date="20/05/2014" className="hoverable">
                                             20 May
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="09/07/2014">
+                                        <a href="#0" data-date="09/07/2014" className="hoverable">
                                             09 Jul
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="30/08/2014">
+                                        <a href="#0" data-date="30/08/2014" className="hoverable">
                                             30 Aug
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="15/09/2014">
+                                        <a href="#0" data-date="15/09/2014" className="hoverable">
                                             15 Sep
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" data-date="01/11/2014">
+                                        <a href="#0" data-date="01/11/2014" className="hoverable">
                                             01 Nov
                                         </a>
                                     </li>
@@ -407,12 +407,12 @@ const ParcoursPage = () => {
 
                         <ul className="cd-timeline-navigation">
                             <li>
-                                <a href="#0" className="prev inactive">
+                                <a href="#0" className="prev inactive hoverable">
                                     Prev
                                 </a>
                             </li>
                             <li>
-                                <a href="#0" className="next">
+                                <a href="#0" className="next hoverable">
                                     Next
                                 </a>
                             </li>
