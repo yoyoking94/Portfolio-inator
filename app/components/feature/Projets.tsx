@@ -9,43 +9,53 @@ import diet from '@/public/Projets/diet.png'
 
 // Données centralisées
 const PROJETS = [
-    { name: 'Log-inator', href: '/projets/log-inator', src: log },
-    { name: 'Fitness-inator', href: '/projets/fitness-inator', src: fitness },
-    { name: 'Password-inator', href: '/projets/password-inator-2', src: password },
-    { name: 'Portfolio-inator', href: '/projets/porfolio-inator', src: portfolio },
-    { name: 'Diet-inator', href: '/projets/diet-inator', src: diet },
+    { name: 'Log-inator', href: '/realisations/log-inator', src: log },
+    { name: 'Fitness-inator', href: '/realisations/fitness-inator', src: fitness },
+    { name: 'Password-inator', href: '/realisations/password-inator-2', src: password },
+    { name: 'Portfolio-inator', href: '/realisations/porfolio-inator', src: portfolio },
+    { name: 'Diet-inator', href: '/realisations/diet-inator', src: diet },
 ]
 
 const Projets = () => {
     return (
-        <section id="projets" className='min-h-dvh w-full flex flex-col items-center justify-center scroll-mt-[10dvh]'>
-            <h2 className='my-10'>Projets</h2>
-            <article className='flex flex-wrap justify-center items-center gap-4'>
+        <section>
+            <article className="flex flex-wrap justify-center items-center py-10 gap-6">
                 {PROJETS.map((projet) => (
-                    <div key={projet.name} className='border w-[280px] h-[340px] flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1'>
-                        {/* Image fixe 280x290 */}
-                        <div className='relative w-full h-[290px] flex-shrink-0'>
-                            <Image
-                                src={projet.src}
-                                alt={projet.name}
-                                fill
-                                className='object-cover'
-                                draggable={false}
-                                sizes="280px"
-                                loading="eager"
-                                priority
-                            />
+                    <Link
+                        key={projet.name}
+                        href={projet.href}
+                        className="group relative w-[500px] h-[300px] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 block hoverable"
+                    >
+                        <Image
+                            src={projet.src}
+                            alt={projet.name}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            draggable={false}
+                            sizes="300px"
+                            loading="eager"
+                            priority
+                        />
+
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
+
+                        <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                            <h3 className="text-white text-xl font-semibold tracking-wide">
+                                {projet.name}
+                            </h3>
+                            <span className="mt-2 inline-flex items-center gap-1 text-white/80 text-sm font-medium">
+                                Voir le projet
+                                <svg
+                                    width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none" className="transition-transform duration-300 group-hover:translate-x-1"
+                                >
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </span>
                         </div>
 
-                        {/* Lien fixe en bas */}
-                        <div className='flex justify-center items-center h-[50px] hoverable'>
-                            <Link
-                                href={projet.href}
-                            >
-                                {projet.name}
-                            </Link>
-                        </div>
-                    </div>
+                        <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-white group-hover:w-full transition-all duration-500" />
+                    </Link>
                 ))}
             </article>
         </section>

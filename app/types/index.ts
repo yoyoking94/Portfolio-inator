@@ -84,12 +84,11 @@ export interface CompetenceComportementale {
     evolution: string;
 }
 
-export type CompetenceDetailData = {
-    type: "technique" | "comportementale";
-    competenceTechnique: CompetenceTechnique | null;
-    competenceComportementale: CompetenceComportementale | null;
-    competenceTechniqueItem: CompetenceTechniqueItem | null;
-};
+export interface CompetenceDetailData {
+    type: 'technique' | 'comportementale'
+    competenceTechniqueItem?: CompetenceTechniqueItem
+    competenceComportementale?: CompetenceComportementale
+}
 
 
 export interface Langue {

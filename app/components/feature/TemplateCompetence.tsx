@@ -54,39 +54,38 @@ const TemplateCompetence = ({ data }: Props) => {
         ? data.competenceTechniqueItem!.evolution
         : data.competenceComportementale!.evolution;
 
-    // Récupère le projet lié selon le type de compétence
     const slugNom = toSlug(nom);
     const projetLie = isTechnique
         ? competenceTechToProjet[slugNom]
         : competenceCompToProjet[slugNom];
 
     return (
-        <section className="py-50">
+        <section>
             <h2 className="text-center">{nom}</h2>
 
-            <article className="py-10">
-                <h3 className="py-5">Définition :</h3>
-                <p className="py-2">{definition}</p>
+            <article className="py-5">
+                <h3>Définition :</h3>
+                <p className="py-5 text-justify">{definition}</p>
             </article>
 
-            <article className="py-10">
-                <h3 className="py-5">Mes preuves :</h3>
-                <p className="py-2">{preuves}</p>
+            <article className="py-5">
+                <h3>Mes preuves :</h3>
+                <p className="py-5 text-justify">{preuves}</p>
             </article>
 
-            <article className="py-10">
-                <h3 className="py-5">Autocritique :</h3>
-                <p className="py-2">{autocritique}</p>
+            <article className="py-5">
+                <h3>Autocritique :</h3>
+                <p className="py-5 text-justify">{autocritique}</p>
             </article>
 
-            <article className="py-10">
-                <h3 className="py-5">Évolution :</h3>
-                <p className="py-2">{evolution}</p>
+            <article className="py-5">
+                <h3>Évolution :</h3>
+                <p className="py-5 text-justify">{evolution}</p>
             </article>
 
             {projetLie && (
                 <article className="py-10">
-                    <h3 className="py-5">Projet lié :</h3>
+                    <h3>Projet lié :</h3>
                     <div className="flex flex-wrap py-2">
                         <Link
                             className="border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable"

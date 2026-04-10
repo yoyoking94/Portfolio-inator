@@ -3,7 +3,7 @@ import Link from 'next/link'
 const Footer = () => {
     return (
         <footer
-            className='flex flex-col xl:flex-row items-center xl:place-content-between gap-2 py-5 px-6 xl:py-0 min-h-[10dvh] text-center xl:text-left text-sm border-t'
+            className='flex flex-col xl:flex-row items-center xl:place-content-between gap-2 py-4 px-6 xl:py-0 min-h-[8dvh] text-center xl:text-left text-sm border-t'
         >
             <div className='shrink-0'>
                 Copyright <span>©</span>2026 Yovish MOONESAMY. Tous droits réservés.

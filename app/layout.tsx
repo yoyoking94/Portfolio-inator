@@ -30,6 +30,9 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className="scroll-smooth"
     >
+      <head>
+        <link rel="preload" href="/svg/bg/map.svg" as="image" type="image/svg+xml" />
+      </head>
       <body>
         {children}
       </body>

@@ -39,35 +39,34 @@ const TemplateProjet = ({ repo }: Props) => {
 
     console.log('Compétences trouvées =', competences);
     return (
-        <section className="py-50">
+        <section>
             <h2 className="text-center">{repo.name}</h2>
 
             {sections.map(({ key, label }) => {
                 const content = repo.readme?.[key];
                 if (!content) return null;
                 return (
-                    <article key={key} className="py-10">
-                        <h3 className="py-5">{label} :</h3>
-                        <p className="py-2 text-justify whitespace-pre-line">{content}</p>
+                    <article key={key} className="py-5">
+                        <h3>{label} :</h3>
+                        <p className="py-5 text-justify whitespace-pre-line">{content}</p>
                     </article>
                 );
             })}
 
             <article className="py-10">
-                <h3 className="py-5">Compétences liées :</h3>
+                <h3>Compétences liées :</h3>
 
                 {competences.techniques.length > 0 && (
-                    <div className="py-2">
+                    <div className="py-5">
                         <p>Technique :</p>
                         <div className="flex flex-wrap">
                             {competences.techniques.map((nom) => (
-                                <Link
-                                    key={nom}
-                                    className="border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable"
-                                    href={`/competences/${nom}`}
-                                >
-                                    {nom}
-                                </Link>
+                                <button key={nom}
+                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
+                                    <Link href={`/competences/${nom}`}>
+                                        {nom}
+                                    </Link>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -78,13 +77,13 @@ const TemplateProjet = ({ repo }: Props) => {
                         <p>Comportementales :</p>
                         <div className="flex flex-wrap">
                             {competences.comportementales.map((nom) => (
-                                <Link
+                                <button
                                     key={nom}
-                                    className="border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable"
-                                    href={`/competences/${nom}`}
-                                >
-                                    {nom}
-                                </Link>
+                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
+                                    <Link href={`/competences/${nom}`} >
+                                        {nom}
+                                    </Link>
+                                </button>
                             ))}
                         </div>
                     </div>

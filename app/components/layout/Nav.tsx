@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,21 +22,15 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     label: "Présentation",
-    href: "/#presentation",
-    children: [
-      { label: "Mes valeurs", href: "/presentation" },
-      { label: "Mon projet", href: "/presentation#projet" },
-      { label: "Mes qualités", href: "/presentation#qualite" },
-      { label: "Mes centres d'intérêt", href: "/presentation#centreInteret" },
-    ],
+    href: "/presentation",
   },
   {
     label: "Compétences",
-    href: "/#competences",
+    href: "/competences",
     children: [
       {
         label: "Techniques",
-        href: "#techniques",
+        href: "techniques",
         children: [
           { label: "Javascript", href: "/competences/javascript" },
           { label: "Typescript", href: "/competences/typescript" },
@@ -47,7 +41,7 @@ const navItems: NavItem[] = [
       },
       {
         label: "Comportementales",
-        href: "/#comportementales",
+        href: "/comportementales",
         children: [
           { label: "Adaptabilité", href: "/competences/adaptabilite" },
           { label: "Autonomie", href: "/competences/autonomie" },
@@ -60,7 +54,7 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  { label: "Parcours", href: "/#parcours" },
+  { label: "Parcours", href: "/parcours" },
   /* {
     label: "Parcours",
     href: "#parcours",
@@ -88,17 +82,17 @@ const navItems: NavItem[] = [
     ],
   }, */
   {
-    label: "Projets",
-    href: "/#projets",
+    label: "Réalisations",
+    href: "/realisations",
     children: [
-      { label: "Log-inator", href: "/projets/log-inator" },
-      { label: "Fitness-inator", href: "/projets/fitness-inator" },
-      { label: "Password-inator", href: "/projets/password-inator-2" },
-      { label: "Portfolio-inator", href: "/projets/porfolio-inator" },
-      { label: "Diet-inator", href: "/projets/diet-inator" },
+      { label: "Log-inator", href: "/realisations/log-inator" },
+      { label: "Fitness-inator", href: "/realisations/fitness-inator" },
+      { label: "Password-inator", href: "/realisations/password-inator-2" },
+      { label: "Portfolio-inator", href: "/realisations/porfolio-inator" },
+      { label: "Diet-inator", href: "/realisations/diet-inator" },
     ],
   },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // ─── Desktop : sous-menu niveau 2 (flyout latéral) ────────────────────────────
@@ -266,7 +260,7 @@ const Nav = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 relative z-50 flex items-center justify-between w-full h-[10dvh] px-6 border-b bg-[#f7f4e7]">
+    <nav className="sticky top-0 relative z-50 flex items-center justify-between w-full h-[8dvh] px-6 border-b bg-[#f7f4e7]">
 
       {/* ── Logo à gauche ── */}
       <Link href="/" className="flex items-center h-full py-1">
