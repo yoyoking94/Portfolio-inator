@@ -1,70 +1,121 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import js from '@/public/svg/js.svg'
-import ts from '@/public/svg/ts.svg'
-import py from '@/public/svg/py.svg'
-import sql from '@/public/svg/sql.svg'
-import nosql from '@/public/svg/nosql.svg'
+import js from '@/public/svg/competences_tech/js.svg'
+import ts from '@/public/svg/competences_tech/ts.svg'
+import py from '@/public/svg/competences_tech/py.svg'
+import sql from '@/public/svg/competences_tech/sql.svg'
+import nosql from '@/public/svg/competences_tech/nosql.svg'
+import angular from '@/public/svg/competences_tech/angular.svg'
+import spring_boot from '@/public/svg/competences_tech/spring_boot.svg'
+import docker from '@/public/svg/competences_tech/docker.svg'
+
+const techGroups = [
+    {
+        label: 'Langages',
+        items: [
+            { alt: 'Javascript', src: js, slug: 'javascript' },
+            { alt: 'Typescript', src: ts, slug: 'typescript' },
+            { alt: 'Python', src: py, slug: 'python' },
+        ],
+    },
+    {
+        label: 'Frameworks',
+        items: [
+            { alt: 'Angular', src: angular, slug: 'angular' },
+            { alt: 'Spring Boot', src: spring_boot, slug: 'spring-boot' },
+        ],
+    },
+    {
+        label: 'Bases de données',
+        items: [
+            { alt: 'SQL', src: sql, slug: 'sql' },
+            { alt: 'NoSQL', src: nosql, slug: 'nosql' },
+        ],
+    },
+    {
+        label: 'Outils & Infrastructure',
+        items: [
+            { alt: 'Docker', src: docker, slug: 'docker' },
+        ],
+    },
+]
+
+const competencesComportementales = [
+    { label: 'Adaptabilité', slug: 'adaptabilite' },
+    { label: 'Autonomie', slug: 'autonomie' },
+    { label: 'Discipline', slug: 'discipline' },
+    { label: 'Gestion du temps', slug: 'gestion-du-temps' },
+    { label: 'Planification', slug: 'planification' },
+    { label: 'Priorisation', slug: 'priorisation' },
+    { label: 'Résilience', slug: 'resilience' },
+]
+
+const TechGroup = ({ label, items }: { label: string; items: typeof techGroups[0]['items'] }) => (
+    <div className="flex flex-col items-center gap-4 flex-1 min-w-0 p-4">
+        {/* Titre du groupe */}
+        <p className="text-xs font-semibold uppercase tracking-widest opacity-40">
+            {label}
+        </p>
+
+        {/* Icônes */}
+        <div className="flex flex-wrap justify-center items-center gap-4">
+            {items.map(({ alt, src, slug }) => (
+                <Link key={slug} href={`/competences/${slug}`}>
+                    <Image
+                        alt={alt}
+                        src={src}
+                        width={80}
+                        className="hoverable"
+                        draggable={false}
+                        loading="eager"
+                        priority
+                    />
+                </Link>
+            ))}
+        </div>
+    </div>
+)
 
 const Competences = () => {
     return (
         <section>
-            <h2 className='text-center'>Compétences</h2>
-            <div>
-                <article>
-                    <h3 className='py-5'>Technique : </h3>
-                    <div className='flex flex-wrap justify-center aligns-center'>
-                        <Link href="/competences/javascript">
-                            <Image alt='Javascript' src={js} width={100}
-                                className="mx-5 hoverable"
-                                draggable={false}
-                                loading="eager"
-                                priority></Image>
-                        </Link>
-                        <Link href="/competences/typescript">
-                            <Image alt='Typescript' src={ts} width={100} height={100}
-                                className="mx-5 hoverable"
-                                draggable={false}
-                                loading="eager"
-                                priority></Image>
-                        </Link>
-                        <Link href="/competences/python">
-                            <Image alt='Python' src={py} width={100}
-                                className="mx-5 hoverable"
-                                draggable={false}
-                                loading="eager"
-                                priority></Image>
-                        </Link>
-                        <Link href="/competences/sql">
-                            <Image alt='Sql' src={sql} width={100}
-                                className="mx-5 hoverable"
-                                draggable={false}
-                                loading="eager"
-                                priority></Image>
-                        </Link>
-                        <Link href="/competences/noSql">
-                            <Image alt='NoSql' src={nosql} width={100}
-                                className="mx-5 hoverable"
-                                draggable={false}
-                                loading="eager"
-                                priority></Image>
-                        </Link>
+            <h2 className="text-center">Compétences</h2>
+
+            {/* Compétences Techniques */}
+            <article>
+                <h3 className="py-5">Techniques :</h3>
+
+                <div className="flex flex-col gap-4">
+                    {/* Ligne 1 : Langages + Frameworks */}
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <TechGroup {...techGroups[0]} />
+                        <TechGroup {...techGroups[1]} />
                     </div>
-                </article>
-                <article className='py-10'>
-                    <h3 className='py-5'>Comportementales : </h3>
-                    <div className='flex flex-wrap justify-center items-center'>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/adaptabilite">Adaptabilité</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/autonomie">Autonomie</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/discipline">Discipline</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/gestion-du-temps">Gestion du temps</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/planification">Planification</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/priorisation">Priorisation</Link>
-                        <Link className='border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable' href="/competences/resilience">Résilience</Link>
+
+                    {/* Ligne 2 : Bases de données + Outils & Infrastructure */}
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <TechGroup {...techGroups[2]} />
+                        <TechGroup {...techGroups[3]} />
                     </div>
-                </article>
-            </div>
+                </div>
+            </article>
+
+            {/* Compétences Comportementales */}
+            <article className="py-10">
+                <h3 className="py-5">Comportementales :</h3>
+                <div className="flex flex-wrap justify-center items-center">
+                    {competencesComportementales.map(({ label, slug }) => (
+                        <Link
+                            key={slug}
+                            className="border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable"
+                            href={`/competences/${slug}`}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                </div>
+            </article>
         </section>
     )
 }

@@ -14,6 +14,9 @@ const PROJETS = [
     { name: 'Password-inator', href: '/realisations/password-inator-2', src: password },
     { name: 'Portfolio-inator', href: '/realisations/porfolio-inator', src: portfolio },
     { name: 'Diet-inator', href: '/realisations/diet-inator', src: diet },
+    { name: 'PMT-inator', href: '/realisations/pmt-inator', src: diet },
+    { name: 'Shopwise-inator', href: '/realisations/shopwise-inator', src: diet },
+    { name: 'EF-inator', href: '/realisations/ef-inator', src: diet },
 ]
 
 const Projets = () => {
@@ -40,7 +43,7 @@ const Projets = () => {
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
 
                         <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                            <h3 className="text-white text-xl font-semibold tracking-wide">
+                            <h3 className="text-white text-xl font-semibold tracking-wide uppercase">
                                 {projet.name}
                             </h3>
                             <span className="mt-2 inline-flex items-center gap-1 text-white/80 text-sm font-medium">

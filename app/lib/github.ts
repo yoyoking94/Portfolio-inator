@@ -7,6 +7,9 @@ const FEATURED_REPOS = [
     'password-inator-2',
     'porfolio-inator',
     'diet-inator',
+    'pmt-inator',
+    'shopwise-inator',
+    'ef-inator'
 ];
 
 const SECTION_MARKERS: { key: keyof ReadmeContent; markers: string[] }[] = [

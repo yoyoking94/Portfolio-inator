@@ -15,6 +15,8 @@ const CompetenceDetailPage = async ({ params }: Props) => {
     const { slug } = await params
 
     const techItem = await getCompetenceTechniqueItemBySlug(slug)
+    console.log(techItem);
+
 
     if (techItem) {
         const data: CompetenceDetailData = {

@@ -12,7 +12,7 @@ const ParcoursPage = () => {
         const timelines = document.querySelectorAll<HTMLElement>(
             ".cd-horizontal-timeline"
         );
-        const eventsMinDistance = 60;
+        const eventsMinDistance = 120;
 
         if (timelines.length > 0) {
             timelines.forEach(initTimeline);
@@ -362,42 +362,42 @@ const ParcoursPage = () => {
                                 <ol>
                                     <li>
                                         <a href="#0" data-date="16/01/2014" className="selected hoverable">
-                                            16 Jan
+                                            Sept 2024
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="28/02/2014" className="hoverable">
-                                            28 Feb
+                                            Mai 2024
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="20/04/2014" className="hoverable">
-                                            20 Mar
+                                            Fév 2022
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="20/05/2014" className="hoverable">
-                                            20 May
+                                            Fév 2022
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="09/07/2014" className="hoverable">
-                                            09 Jul
+                                            Déc 2019
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="30/08/2014" className="hoverable">
-                                            30 Aug
+                                            Sep 2019
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="15/09/2014" className="hoverable">
-                                            15 Sep
+                                            Sep 2018
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0" data-date="01/11/2014" className="hoverable">
-                                            01 Nov
+                                            Fév 2018
                                         </a>
                                     </li>
                                 </ol>
@@ -422,107 +422,127 @@ const ParcoursPage = () => {
                     <div className="events-content">
                         <ol>
                             <li className="selected" data-date="16/01/2014">
-                                <h2>Horizontal Timeline</h2>
-                                <em>January 16th, 2014</em>
+                                <div className="flex justify-between align-center">
+                                    <span>ISCOD - Paris</span>
+                                    <span>Septembre 2024 → Juillet 2026</span>
+                                </div>
+                                <p><span className="underline">Diplôme :</span> Master Bac +5 - Expert en Ingénierie du Logiciel</p>
+                                <p><span className="underline">Thématique :</span> Analyse et conseil, Gestion de projet, Développement Logiciel, Technologie avancées</p>
+                                <p><span className="underline">Technologie :</span> JS, TSX, Angular, Java, Kotlin, Docker, GIT, NoSQL</p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                                    <span className="underline">Cours :</span> Analyse des besoins et rédaction de spécifications, Gestion de projet Agile (Scrum/Kanban), Architecture logicielle et design patterns, Développement front-end Angular & React, Développement back-end Java & Node.js, Programmation mobile Android (Kotlin), Conteneurisation avec Docker, Gestion de versions GIT avancée, Bases de données NoSQL (MongoDB), Sécurité applicative et DevOps
+                                </p>
+                                <p>
+                                    L&apos;ISCOD (Institut Supérieur des Compétences de Demain) est une école 100% en ligne et 100% en alternance, spécialisée dans les métiers du numérique, du marketing, du commerce, du management et des ressources humaines. Elle propose des formations diplômantes allant du Bac+2 au Bac+5, reconnues par l&apos;État, avec un rythme pensé pour les apprentis : 1 jour de formation pour 4 jours en entreprise. Membre du groupe AD Education (premier réseau européen de formations créatives, présent dans 10 pays), l&apos;ISCOD bénéficie d&apos;un accompagnement personnalisé à chaque étape du parcours grâce à des chargés d&apos;admission, des learning coachs et un réseau de plus de 600 entreprises partenaires.
                                 </p>
                             </li>
 
                             <li data-date="28/02/2014">
-                                <h2>Event title here</h2>
-                                <em>February 28th, 2014</em>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                                </p>
+                                <div className="flex justify-between align-center">
+                                    <span>Lactalis International - Choisy-Le-Roi</span>
+                                    <span>Mai 2024 → Aujourd’hui</span>
+                                </div>
+                                <p><span className="underline">Chiffre d&apos;affaire (2024):</span> 30 Mds €</p>
+                                <p><span className="underline">Poste :</span> Technicien Support Application et Micro-Informatique</p>
+                                <p><span className="underline">Mission :</span> Assurer le bon fonctionnement des logiciels</p>
+
+                                <p>Support et Résolution d&apos;Incidents : Diagnostic et résolution rapide des problèmes applicatifs et micro-informatiques, assistance technique aux utilisateurs</p>
+                                <p>Gestion du Parc : Installation, configuration, maintenance des équipements et logiciels, application des correctifs (Windev, Webdev, SQL Developper)</p>
+                                <p>Suivi des Demandes : Enregistrement et gestion des incidents via un système de ticketing, communication avec les utilisateurs</p>
+                                <p>Documentation et Formation : Création de supports, formation des utilisateurs aux outils informatiques (Microsoft 365)</p>
+                                <p>Amélioration Continue : Collaboration avec les équipes pour optimiser les systèmes et les applications</p>
                             </li>
 
                             <li data-date="20/04/2014">
-                                <h2>Event title here</h2>
-                                <em>March 20th, 2014</em>
+                                <div className="flex justify-between align-center">
+                                    <span>Cloud Campus - Paris</span>
+                                    <span>Février 2022 → Février 2023</span>
+                                </div>
+                                <p><span className="underline">Diplôme :</span> Licence Bac +3 - Développeur Web Full-Stack</p>
+                                <p><span className="underline">Thématique :</span> SEO, Front-end</p>
+                                <p><span className="underline">Technologie :</span> HTML, CSS, JS, React (jsx, tsx), Node.js, GIT, Figma</p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                                    <span className="underline">Cours :</span> Intégration web HTML/CSS avancée, JavaScript ES6+ et TypeScript, Développement React (JSX/TSX), API REST avec Node.js & Express, Gestion de projet GIT & GitHub, Optimisation SEO, Maquettage UI/UX avec Figma, Déploiement et hébergement web
+                                </p>
+                                <p>
+                                    Cloud Campus est un centre de formation en alternance basé à Compiègne (Oise), dédié aux métiers du numérique et de la relation client. Il propose des formations du Bac+2 au Bac+5, notamment un BTS NDRC (Négociation et Digitalisation de la Relation Client), un titre de Développeur Web Full Stack (Bac+3/4) accessible en full remote, et un Bac+5 Chef de projet digital avec parcours Cybersécurité et Cloud. La pédagogie repose sur 80% de mise en pratique et 20% de théorie, avec des formateurs issus du monde professionnel, et Cloud Campus assure un accompagnement complet de la recherche d&apos;alternance jusqu&apos;à l&apos;obtention du diplôme.
                                 </p>
                             </li>
 
                             <li data-date="20/05/2014">
-                                <h2>Event title here</h2>
-                                <em>May 20th, 2014</em>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                                </p>
+                                <div className="flex justify-between align-center">
+                                    <span>Elyotech - Asnières-sur-Seine</span>
+                                    <span>Mai 2024 → Aujourd’hui</span>
+                                </div>
+                                <p><span className="underline">Chiffre d&apos;affaire (2024):</span> 114 039 €</p>
+                                <p><span className="underline">Poste :</span> Développeur web et mobile - Full-stack</p>
+                                <p><span className="underline">Mission :</span> Assurer le bon fonctionnement des logiciels</p>
+
+                                <p>Conception et développement : Création d&apos;applications web et mobiles de A à Z, en travaillant sur le front-end, le back-end, et les bases de données (React.tsx, HTML, SCSS, Node.js, Firebase et AWS S3)</p>
+                                <p>Analyse des besoins : Compréhension et traduction des besoins clients en solutions techniques adaptées</p>
+                                <p>Programmation : Codage des fonctionnalités en utilisant divers langages de programmation</p>
                             </li>
 
                             <li data-date="09/07/2014">
-                                <h2>Event title here</h2>
-                                <em>July 9th, 2014</em>
+                                <div className="flex justify-between align-center">
+                                    <span>CFA UTEC - Emerainville</span>
+                                    <span>Septembre 2019 → Janvier 2022</span>
+                                </div>
+                                <p><span className="underline">Diplôme :</span> BTS Bac +2 - Système Informatique aux Organisation</p>
+                                <p><span className="underline">Thématique :</span> Serveur, Front-end et Back-end, Base de données, Domotique, Algorithme, Prototypage</p>
+                                <p><span className="underline">Technologie :</span> HTML, CSS, PHP, Python, JAVA, PostgreSQL</p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                                    <span className="underline">Cours :</span> Administration systèmes et réseaux, Développement front-end & back-end PHP, Bases de données PostgreSQL, Programmation Python & Java, Domotique et IoT, Algorithmique et structures de données, Prototypage et modélisation UML, Cybersécurité des systèmes d&apos;information
+                                </p>
+                                <p>
+                                    Le CFA UTEC, situé à Émerainville en Seine-et-Marne (77), est l&apos;école de la CCI Seine-et-Marne et forme environ 2 000 jeunes par an à travers une cinquantaine de diplômes, du CAP au Bac+5. Ses formations sont organisées en quatre pôles d&apos;expertise : Gastronomie Academy, Hospitality (Hôtellerie-Restauration-Tourisme), IT Cyber Academy (Informatique, Cybersécurité, Fibre optique) et Management & Marketing (Commerce, Comptabilité, Gestion). L&apos;établissement se distingue par un encadrement pédagogique individualisé assuré par des professionnels confirmés, ainsi qu&apos;un service de conseillers relation entreprise qui aide les candidats à trouver leur contrat d&apos;apprentissage.
                                 </p>
                             </li>
 
                             <li data-date="30/08/2014">
-                                <h2>Event title here</h2>
-                                <em>August 30th, 2014</em>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                                </p>
+                                <div className="flex justify-between align-center">
+                                    <span>Circeo - Paris</span>
+                                    <span>Décembre 2019 → Juillet 2021</span>
+                                </div>
+                                <p><span className="underline">Chiffre d&apos;affaire (2024):</span> 1M €</p>
+                                <p><span className="underline">Poste :</span> Développeur web - Front-end</p>
+                                <p><span className="underline">Mission :</span> Création de parcours de souscription pour BNP Paribas, Société Générale, Fiat, Renault, Carrefour</p>
+
+                                <p>Analyse des besoins : Recueil et étude des cahiers des charges auprès des clients</p>
+                                <p>Conception et développement : Création et habillage des différents composants d&apos;interface utilisateur (HTML, CSS, JS)</p>
+                                <p>Intégration et tests : Mise en place de l&apos;intégration continue et réalisation de tests pour assurer la qualité et la performance des applications</p>
+                                <p>Collaboration : Travail en équipe avec d&apos;autres développeurs, designers et chefs de projet pour mener à bien les projets</p>
                             </li>
 
                             <li data-date="15/09/2014">
-                                <h2>Event title here</h2>
-                                <em>September 15th, 2014</em>
+                                <div className="flex justify-between align-center">
+                                    <span>IUT de Valenciennes - Maubeuge</span>
+                                    <span>Septembre 2018 → Juillet 2019</span>
+                                </div>
+                                <p><span className="underline">Diplôme :</span> DUT Bac +2 - Informatique</p>
+                                <p><span className="underline">Thématique :</span> Système d&apos;exploitation, Serveur, Front-end, Base de données, POO</p>
+                                <p><span className="underline">Technologie :</span> JAVA, Linux (Debian, Ubuntu), MySQL</p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                                    <span className="underline">Cours :</span> Programmation orientée objet Java, Administration Linux (Debian/Ubuntu), Bases de données MySQL & SQL avancé, Systèmes d&apos;exploitation et virtualisation, Développement web front-end, Réseaux informatiques et protocoles, Algorithmique et mathématiques appliquées
+                                </p>
+                                <p>
+                                    L&apos;IUT de Valenciennes, site de Maubeuge, est un établissement d&apos;enseignement supérieur public rattaché à l&apos;Université Polytechnique Hauts-de-France, situé à Maubeuge dans le département du Nord. Il propose des BUT (Bachelor Universitaire de Technologie) en trois ans, notamment en Informatique (parcours développement d&apos;applications ou déploiement d&apos;applications communicantes et sécurisées) et en Mesures Physiques (parcours matériaux et contrôles physico-chimiques), disponibles en temps plein ou en apprentissage. Depuis plus de cinquante ans, l&apos;IUT entretient une collaboration étroite avec les entreprises régionales, offrant une pédagogie active mêlant travaux pratiques, projets tutorés, stages et une ouverture internationale grâce à des partenariats avec des universités étrangères.
                                 </p>
                             </li>
 
                             <li data-date="01/11/2014">
-                                <h2>Event title here</h2>
-                                <em>November 1st, 2014</em>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
-                                    praesentium officia, fugit recusandae ipsa, quia velit nulla
-                                    adipisci? Consequuntur aspernatur at, eaque hic repellendus sit
-                                    dicta consequatur quae, ut harum ipsam molestias maxime non nisi
-                                    reiciendis eligendi! Doloremque quia pariatur harum ea amet
-                                    quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                                </p>
+                                <div className="flex justify-between align-center">
+                                    <span>Netapsys / Sodifrance - Paris</span>
+                                    <span>Février 2018 → Février 2018</span>
+                                </div>
+                                <p><span className="underline">Chiffre d&apos;affaire (2024):</span> 110M €</p>
+                                <p><span className="underline">Poste :</span> Développeur Web Full-stack</p>
+                                <p><span className="underline">Mission :</span> Découverte des différents services de l&apos;entreprise</p>
+
+                                <p>Observation et apprentissage : Immersion dans les différents départements de l&apos;entreprise, avec un focus particulier sur le développement web et les projets digitauxÊ</p>
+                                <p>Analyse des processus : Étude des méthodologies de travail et des outils utilisés par les équipes de développement (Sprint)Ê</p>
+                                <p>Initiation aux projets : Familiarisation avec les différentes étapes du cycle de développement d&apos;un projet web, de la conception à la livraison (DevOps)Ê</p>
+                                <p>Découverte technologique : Exposition aux technologies et frameworks utilisés dans l&apos;entreprise pour le développement web full-stack (HTML, CSS, PHP)Ê</p>
                             </li>
                         </ol>
                     </div>

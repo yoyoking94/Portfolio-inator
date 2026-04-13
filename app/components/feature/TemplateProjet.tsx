@@ -5,20 +5,93 @@ interface Props {
     repo: GitHubRepo;
 }
 
-function toSlug(nom: string): string {
-    return nom
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/ /g, "-");
-}
-
-const projetToCompetences: Record<string, { techniques: string[]; comportementales: string[] }> = {
-    "log-inator": { techniques: ["JavaScript", "NoSQL"], comportementales: ["Planification", "Priorisation"] },
-    "fitness-inator": { techniques: ["TypeScript"], comportementales: ["Autonomie", "Gestion du temps"] },
-    "password-inator-2": { techniques: ["Python"], comportementales: ["Discipline"] },
-    "porfolio-inator": { techniques: ["TypeScript", "SQL"], comportementales: ["Adaptabilité"] },
-    "diet-inator": { techniques: ["NoSQL"], comportementales: ["Résilience"] },
+const projetToCompetences: Record<string, {
+    techniques: { label: string; slug: string }[];
+    comportementales: { label: string; slug: string }[];
+}> = {
+    "log-inator": {
+        techniques: [
+            { label: "JavaScript", slug: "javascript" },
+            { label: "NoSQL", slug: "nosql" },
+        ],
+        comportementales: [
+            { label: "Planification", slug: "planification" },
+            { label: "Priorisation", slug: "priorisation" },
+        ],
+    },
+    "fitness-inator": {
+        techniques: [
+            { label: "TypeScript", slug: "typescript" },
+        ],
+        comportementales: [
+            { label: "Autonomie", slug: "autonomie" },
+            { label: "Gestion du temps", slug: "gestion-du-temps" },
+        ],
+    },
+    "password-inator-2": {
+        techniques: [
+            { label: "Python", slug: "python" },
+        ],
+        comportementales: [
+            { label: "Discipline", slug: "discipline" },
+        ],
+    },
+    "porfolio-inator": {
+        techniques: [
+            { label: "TypeScript", slug: "typescript" },
+            { label: "SQL", slug: "sql" },
+        ],
+        comportementales: [
+            { label: "Adaptabilité", slug: "adaptabilite" },
+        ],
+    },
+    "diet-inator": {
+        techniques: [
+            { label: "NoSQL", slug: "nosql" },
+        ],
+        comportementales: [
+            { label: "Résilience", slug: "resilience" },
+        ],
+    },
+    "pmt-inator": {
+        techniques: [
+            { label: "Angular", slug: "angular" },
+            { label: "Spring Boot", slug: "spring-boot" },
+            { label: "Docker", slug: "docker" },
+            { label: "SQL", slug: "sql" },
+        ],
+        comportementales: [
+            { label: "Résilience", slug: "resilience" },
+            { label: "Autonomie", slug: "autonomie" },
+            { label: "Gestion du temps", slug: "gestion-du-temps" },
+        ],
+    },
+    "shopwise-inator": {
+        techniques: [
+            { label: "Angular", slug: "angular" },
+            { label: "Spring Boot", slug: "spring-boot" },
+            { label: "Docker", slug: "docker" },
+            { label: "SQL", slug: "sql" },
+        ],
+        comportementales: [
+            { label: "Résilience", slug: "resilience" },
+            { label: "Autonomie", slug: "autonomie" },
+            { label: "Gestion du temps", slug: "gestion-du-temps" },
+        ],
+    },
+    "ef-inator": {
+        techniques: [
+            { label: "Angular", slug: "angular" },
+            { label: "Spring Boot", slug: "spring-boot" },
+            { label: "Docker", slug: "docker" },
+            { label: "SQL", slug: "sql" },
+        ],
+        comportementales: [
+            { label: "Résilience", slug: "resilience" },
+            { label: "Autonomie", slug: "autonomie" },
+            { label: "Gestion du temps", slug: "gestion-du-temps" },
+        ],
+    },
 };
 
 const sections: { key: keyof NonNullable<GitHubRepo["readme"]>; label: string }[] = [
@@ -40,11 +113,14 @@ const TemplateProjet = ({ repo }: Props) => {
     console.log('Compétences trouvées =', competences);
     return (
         <section>
-            <h2 className="text-center">{repo.name}</h2>
+            <h2 className="text-center uppercase">{repo.name}</h2>
 
             {sections.map(({ key, label }) => {
                 const content = repo.readme?.[key];
                 if (!content) return null;
+
+                console.log("content : " + content);
+
                 return (
                     <article key={key} className="py-5">
                         <h3>{label} :</h3>
@@ -60,36 +136,32 @@ const TemplateProjet = ({ repo }: Props) => {
                     <div className="py-5">
                         <p>Technique :</p>
                         <div className="flex flex-wrap">
-                            {competences.techniques.map((nom) => (
-                                <button key={nom}
-                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
-                                    <Link href={`/competences/${nom}`}>
-                                        {nom}
-                                    </Link>
-                                </button>
+                            {competences.techniques.map(({ label, slug }) => (
+                                <Link key={slug} href={`/competences/${slug}`} className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
+                                    {label}
+                                </Link>
                             ))}
                         </div>
                     </div>
-                )}
+                )
+                }
 
-                {competences.comportementales.length > 0 && (
-                    <div className="py-2">
-                        <p>Comportementales :</p>
-                        <div className="flex flex-wrap">
-                            {competences.comportementales.map((nom) => (
-                                <button
-                                    key={nom}
-                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
-                                    <Link href={`/competences/${nom}`} >
-                                        {nom}
+                {
+                    competences.comportementales.length > 0 && (
+                        <div className="py-2">
+                            <p>Comportementales :</p>
+                            <div className="flex flex-wrap">
+                                {competences.comportementales.map(({ label, slug }) => (
+                                    <Link key={slug} href={`/competences/${slug}`} className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
+                                        {label}
                                     </Link>
-                                </button>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                )}
-            </article>
-        </section>
+                    )
+                }
+            </article >
+        </section >
     );
 };
 

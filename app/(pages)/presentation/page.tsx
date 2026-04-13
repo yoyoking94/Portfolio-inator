@@ -4,7 +4,7 @@ import Nav from '@/app/components/layout/Nav'
 import { getProfile, getCentresInteret } from '@/app/lib/database'
 
 const PresentationPage = async () => {
-    const [profil, centresInteret] = await Promise.all([
+    const [profil] = await Promise.all([
         getProfile(),
         getCentresInteret(),
     ])
@@ -18,35 +18,22 @@ const PresentationPage = async () => {
                 <section>
                     <article className='py-5'>
                         <h3>Mes valeurs :</h3>
-                        <p className='py-5 text-justify'>{profil.valeurs}</p>
+                        <p className='py-5 text-justify whitespace-pre-line'>{profil.valeurs}</p>
                     </article>
 
                     <article className='py-5'>
                         <h3>Mon projet :</h3>
-                        <p className='pt-5 text-justify'>{profil.projet}</p>
+                        <p className='pt-5 text-justify whitespace-pre-line'>{profil.projet}</p>
                     </article>
 
                     <article className='py-5'>
                         <h3>Mes qualités :</h3>
-                        <p className='pt-5 text-justify'>{profil.qualitees}</p>
+                        <p className='pt-5 text-justify whitespace-pre-line'>{profil.qualitees}</p>
                     </article>
 
                     <article className='py-5'>
                         <h3>Mes centres d&apos;intérêts :</h3>
-                        {centresInteret.length > 0 ? (
-                            <ul className='pt-5 flex flex-wrap gap-3'>
-                                {centresInteret.map((centre) => (
-                                    <li
-                                        key={centre.id}
-                                        className='border px-5 py-3 text-sm'
-                                    >
-                                        {centre.nom}
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className='pt-5 text-justify'>{profil.centre_interet}</p>
-                        )}
+                        <p className='pt-5 text-justify whitespace-pre-line'>{profil.centre_interet}</p>
                     </article>
                 </section>
             </main>

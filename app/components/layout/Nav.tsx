@@ -32,6 +32,9 @@ const navItems: NavItem[] = [
         label: "Techniques",
         href: "techniques",
         children: [
+          { label: "Angular", href: "/competences/angular" },
+          { label: "Spring Boot", href: "/competences/spring-boot" },
+          { label: "Docker", href: "/competences/docker" },
           { label: "Javascript", href: "/competences/javascript" },
           { label: "Typescript", href: "/competences/typescript" },
           { label: "Python", href: "/competences/python" },
@@ -55,36 +58,13 @@ const navItems: NavItem[] = [
     ],
   },
   { label: "Parcours", href: "/parcours" },
-  /* {
-    label: "Parcours",
-    href: "#parcours",
-    children: [
-      {
-        label: "Expériences",
-        href: "/#experiences",
-        children: [
-          { label: "Lactalis International", href: "/lactalis" },
-          { label: "Elyotech", href: "/elyotech" },
-          { label: "Circeo", href: "/circeo" },
-          { label: "Netapsys / Sodifrance", href: "/netapsysSodifrance" },
-        ],
-      },
-      {
-        label: "Formations",
-        href: "#formations",
-        children: [
-          { label: "Iscod", href: "/iscod" },
-          { label: "Cloud Campus", href: "/cloudCampus" },
-          { label: "CFA UTEC", href: "/utec" },
-          { label: "IUT de MAUBEUGE", href: "/iut" },
-        ],
-      },
-    ],
-  }, */
   {
     label: "Réalisations",
     href: "/realisations",
     children: [
+      { label: "PMT-inator", href: "/realisations/pmt-inator" },
+      { label: "Shopwise-inator", href: "/realisations/shopwise-inator" },
+      { label: "EF-inator", href: "/realisations/ef-inator" },
       { label: "Log-inator", href: "/realisations/log-inator" },
       { label: "Fitness-inator", href: "/realisations/fitness-inator" },
       { label: "Password-inator", href: "/realisations/password-inator-2" },
