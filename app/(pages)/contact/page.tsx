@@ -20,7 +20,8 @@ function validateEmail(email: string): string | null {
     return null;
 }
 
-const inputClass = "w-full border-2 border-black text-pixel-sm cursor-none hoverable text-base md:text-pixel-sm";
+const inputClass =
+    "w-full border-2 border-black text-pixel-sm cursor-none hoverable text-base md:text-pixel-sm";
 const inputStyle = { padding: '8px 10px' };
 
 const ContactPage = () => {
@@ -74,7 +75,6 @@ const ContactPage = () => {
             setOtp('');
         } else {
             setStatus({ error: result.error });
-            // Si "Recommence depuis le début", on remet le formulaire
             if (result.error?.includes('Recommence')) {
                 setStep('form');
             }
@@ -89,134 +89,189 @@ const ContactPage = () => {
 
     return (
         <>
-            <CustomCursor></CustomCursor>
-            <Nav></Nav>
+            <CustomCursor />
+            <Nav />
             <main className="min-h-dvh w-full flex flex-col items-center justify-center scroll-mt-[8dvh] bg-[url('/svg/bg/map.svg')] bg-no-repeat bg-cover relative overflow-hidden">
-                <section className='bg-[#f7f4e7] w-[515px] z-50' style={{ padding: '40px 36px' }}>
+                <svg
+                    viewBox="0 0 1560 420"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="Présentation"
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    <rect width="1560" height="420" fill="none" />
 
-                    <h2 className="uppercase tracking-widest font-bold text-2xl mt-6 mb-8 text-center">Contact</h2>
+                    <text
+                        x="50%"
+                        y="50%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontSize="150"
+                        fontWeight="900"
+                        letterSpacing="-10"
+                        fill="#E8E0DA"
+                        opacity="0.9"
+                    >
+                        CONTACT
+                    </text>
 
-                    {step === 'form' && (
-                        <form action={handleSubmit} className="space-y-4 w-full max-w-lg">
+                    <text
+                        x="50%"
+                        y="60%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontSize="100"
+                        fontWeight="900"
+                        letterSpacing="-6"
+                        fill="#411222"
+                    >
+                        CONTACT
+                    </text>
+                </svg>
 
-                            <div>
-                                <label className="block text-pixel-sm mb-1 cursor-none">Nom</label>
-                                <input
-                                    name="name"
-                                    className={inputClass}
-                                    style={inputStyle}
-                                    required
-                                />
-                            </div>
+                <section className="z-2 mb-30 w-full">
+                    <div className=" bg-[#f7f4e7] mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
+                        {step === 'form' && (
+                            <form action={handleSubmit} className="w-full">
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label htmlFor="name" className="text-sm font-medium">
+                                            Nom
+                                        </label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            className="min-h-12 w-full border border-black/15 bg-white px-4 py-3 text-base outline-none transition focus:border-black"
+                                        />
+                                    </div>
 
-                            <div>
-                                <label className="block text-pixel-sm mb-1 cursor-none">Email</label>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    onChange={handleEmailChange}
-                                    className={`${inputClass} ${emailError ? 'border-red-500' : ''}`}
-                                    style={inputStyle}
-                                    required
-                                />
-                                {emailError && (
-                                    <p className="text-red-600 text-xs mt-1">{emailError}</p>
-                                )}
-                                <p className="text-xs opacity-40 mt-1">
-                                    Acceptés : Gmail, Outlook, iCloud
+                                    <div className="flex flex-col gap-2">
+                                        <label htmlFor="firstname" className="text-sm font-medium">
+                                            Prénom
+                                        </label>
+                                        <input
+                                            id="firstname"
+                                            name="firstname"
+                                            type="text"
+                                            className="min-h-12 w-full border border-black/15 bg-white px-4 py-3 text-base outline-none transition focus:border-black"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 md:col-span-2">
+                                        <label htmlFor="email" className="text-sm font-medium">
+                                            Email
+                                        </label>
+                                        <input
+                                            id="email"
+                                            onChange={handleEmailChange}
+                                            name="email"
+                                            type="email"
+                                            className="min-h-12 w-full border border-black/15 bg-white px-4 py-3 text-base outline-none transition focus:border-black"
+                                        />
+                                        {emailError && (
+                                            <p className="mt-1 text-xs text-red-600">{emailError}</p>
+                                        )}
+                                        <p className="mt-1 text-xs opacity-40">
+                                            Acceptés : Gmail, Outlook, iCloud
+                                        </p>
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 md:col-span-2">
+                                        <label htmlFor="subject" className="text-sm font-medium">
+                                            Sujet
+                                        </label>
+                                        <input
+                                            id="subject"
+                                            name="subject"
+                                            type="text"
+                                            className="min-h-12 w-full border border-black/15 bg-white px-4 py-3 text-base outline-none transition focus:border-black"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 md:col-span-2">
+                                        <label htmlFor="message" className="text-sm font-medium">
+                                            Message
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            rows={6}
+                                            className="w-full border border-black/15 bg-white px-4 py-3 text-base outline-none transition focus:border-black"
+                                        />
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading || !!emailError}
+                                            className="min-h-12 w-full bg-black px-5 py-3 text-sm font-semibold text-[#f7f4e7] transition hover:bg-[#222]"
+                                        >
+                                            {isLoading ? 'Envoi du code...' : 'Envoyer'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        )}
+
+                        {step === 'verify' && (
+                            <div className="w-full space-y-4">
+                                <p className="text-sm">
+                                    Un code à 6 chiffres a été envoyé à <strong>{verifyEmail}</strong>. Saisis-le ci-dessous pour confirmer l&apos;envoi.
                                 </p>
+
+                                <div>
+                                    <label className="mb-1 block text-pixel-sm cursor-none">
+                                        Code de vérification
+                                    </label>
+                                    <input
+                                        value={otp}
+                                        onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                        placeholder="123456"
+                                        maxLength={6}
+                                        className={inputClass}
+                                        style={{ ...inputStyle, letterSpacing: '6px', fontSize: '20px' }}
+                                    />
+                                    <p className="mt-1 text-xs opacity-40">Expire dans 10 minutes.</p>
+                                </div>
+
+                                <button
+                                    onClick={handleVerify}
+                                    disabled={isLoading || otp.length !== 6}
+                                    className="w-full bg-black text-white text-pixel-sm hover:bg-gray-800 transition-all cursor-none hoverable disabled:opacity-50"
+                                    style={{ padding: '10px 4px' }}
+                                >
+                                    {isLoading ? 'Vérification...' : 'Valider le code'}
+                                </button>
+
+                                <button
+                                    onClick={handleBack}
+                                    disabled={isLoading}
+                                    className="w-full border-2 border-black text-pixel-sm hover:bg-gray-100 transition-all cursor-none hoverable disabled:opacity-50"
+                                    style={{ padding: '10px 4px' }}
+                                >
+                                    ← Retour
+                                </button>
                             </div>
+                        )}
 
-                            <div>
-                                <label className="block text-pixel-sm mb-1 cursor-none">Sujet</label>
-                                <input
-                                    name="subject"
-                                    placeholder="Ex: Candidature React, Question projet..."
-                                    className={inputClass}
-                                    style={inputStyle}
-                                    required
-                                    maxLength={100}
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-pixel-sm mb-1 cursor-none">Message</label>
-                                <textarea
-                                    name="message"
-                                    className={`${inputClass} h-32 md:h-24`}
-                                    style={inputStyle}
-                                    required
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isLoading || !!emailError}
-                                className="w-full bg-black text-white text-pixel-sm hover:bg-gray-800 transition-all cursor-none hoverable disabled:opacity-50"
-                                style={{ padding: '10px 4px' }}
-                            >
-                                {isLoading ? 'Envoi du code...' : 'Envoyer'}
-                            </button>
-
-                        </form>
-                    )}
-
-                    {step === 'verify' && (
-                        <div className="space-y-4 w-full max-w-lg">
-
-                            <p className="text-sm">
-                                Un code à 6 chiffres a été envoyé à <strong>{verifyEmail}</strong>. Saisis-le ci-dessous pour confirmer l&apos;envoi.
+                        {status?.success && (
+                            <p className="mt-6 w-full border-2 border-green-500 bg-green-100 p-4 text-pixel-sm text-green-800">
+                                Merci ! Ton message m&apos;est bien parvenu. Je te réponds sous 48h.
                             </p>
+                        )}
 
-                            <div>
-                                <label className="block text-pixel-sm mb-1 cursor-none">Code de vérification</label>
-                                <input
-                                    value={otp}
-                                    onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                    placeholder="123456"
-                                    maxLength={6}
-                                    className={inputClass}
-                                    style={{ ...inputStyle, letterSpacing: '6px', fontSize: '20px' }}
-                                />
-                                <p className="text-xs opacity-40 mt-1">Expire dans 10 minutes.</p>
-                            </div>
-
-                            <button
-                                onClick={handleVerify}
-                                disabled={isLoading || otp.length !== 6}
-                                className="w-full bg-black text-white text-pixel-sm hover:bg-gray-800 transition-all cursor-none hoverable disabled:opacity-50"
-                                style={{ padding: '10px 4px' }}
-                            >
-                                {isLoading ? 'Vérification...' : 'Valider le code'}
-                            </button>
-
-                            <button
-                                onClick={handleBack}
-                                disabled={isLoading}
-                                className="w-full border-2 border-black text-pixel-sm hover:bg-gray-100 transition-all cursor-none hoverable disabled:opacity-50"
-                                style={{ padding: '10px 4px' }}
-                            >
-                                ← Retour
-                            </button>
-
-                        </div>
-                    )}
-
-                    {status?.success && (
-                        <p className="mt-4 p-4 border-2 border-green-500 bg-green-100 text-pixel-sm text-green-800 w-full max-w-lg">
-                            Merci ! Ton message m&apos;est bien parvenu. Je te réponds sous 48h.
-                        </p>
-                    )}
-                    {status?.error && (
-                        <p className="mt-4 p-4 border-2 border-red-500 bg-red-100 text-pixel-sm text-red-800 w-full max-w-lg">
-                            {status.error}
-                        </p>
-                    )}
+                        {status?.error && (
+                            <p className="mt-6 w-full border-2 border-red-500 bg-red-100 p-4 text-pixel-sm text-red-800">
+                                {status.error}
+                            </p>
+                        )}
+                    </div>
                 </section>
             </main>
-            <Footer></Footer>
+            <Footer />
         </>
-
     );
 };
 

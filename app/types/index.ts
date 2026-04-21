@@ -112,15 +112,12 @@ export type GitHubRepo = {
     name: string;
     description: string | null;
     html_url: string;
-    topics: string[];
-    language: string | null;
-    stargazers_count: number;
-    homepage: string | null;
-    fork: boolean;
-    readme: ReadmeContent | null;
 };
 
-export type ReadmeContent = {
+export interface Projet {
+    id: number;
+    profil_id: number;
+    nom: string;
     presentation: string | null;
     objectifs: string | null;
     etapes: string | null;
@@ -128,4 +125,5 @@ export type ReadmeContent = {
     resultats: string | null;
     lendemains: string | null;
     regard_critique: string | null;
-};
+    ordre: number;
+}

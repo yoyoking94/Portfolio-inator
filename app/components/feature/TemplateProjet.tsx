@@ -1,64 +1,23 @@
 import Link from "next/link";
-import type { GitHubRepo } from "@/app/types";
+import Image from "next/image";
+import type { GitHubRepo, Projet } from "@/app/types";
+import * as motion from "motion/react-client";
 
 interface Props {
     repo: GitHubRepo;
+    projet: Projet | null;
 }
 
 const projetToCompetences: Record<string, {
     techniques: { label: string; slug: string }[];
     comportementales: { label: string; slug: string }[];
 }> = {
-    "log-inator": {
-        techniques: [
-            { label: "JavaScript", slug: "javascript" },
-            { label: "NoSQL", slug: "nosql" },
-        ],
-        comportementales: [
-            { label: "Planification", slug: "planification" },
-            { label: "Priorisation", slug: "priorisation" },
-        ],
-    },
-    "fitness-inator": {
-        techniques: [
-            { label: "TypeScript", slug: "typescript" },
-        ],
-        comportementales: [
-            { label: "Autonomie", slug: "autonomie" },
-            { label: "Gestion du temps", slug: "gestion-du-temps" },
-        ],
-    },
-    "password-inator-2": {
-        techniques: [
-            { label: "Python", slug: "python" },
-        ],
-        comportementales: [
-            { label: "Discipline", slug: "discipline" },
-        ],
-    },
-    "porfolio-inator": {
-        techniques: [
-            { label: "TypeScript", slug: "typescript" },
-            { label: "SQL", slug: "sql" },
-        ],
-        comportementales: [
-            { label: "Adaptabilité", slug: "adaptabilite" },
-        ],
-    },
-    "diet-inator": {
-        techniques: [
-            { label: "NoSQL", slug: "nosql" },
-        ],
-        comportementales: [
-            { label: "Résilience", slug: "resilience" },
-        ],
-    },
     "pmt-inator": {
         techniques: [
             { label: "Angular", slug: "angular" },
             { label: "Spring Boot", slug: "spring-boot" },
             { label: "Docker", slug: "docker" },
-            { label: "SQL", slug: "sql" },
+            { label: "MYSQL", slug: "mysql" },
         ],
         comportementales: [
             { label: "Résilience", slug: "resilience" },
@@ -71,7 +30,7 @@ const projetToCompetences: Record<string, {
             { label: "Angular", slug: "angular" },
             { label: "Spring Boot", slug: "spring-boot" },
             { label: "Docker", slug: "docker" },
-            { label: "SQL", slug: "sql" },
+            { label: "MYSQL", slug: "mysql" },
         ],
         comportementales: [
             { label: "Résilience", slug: "resilience" },
@@ -79,12 +38,12 @@ const projetToCompetences: Record<string, {
             { label: "Gestion du temps", slug: "gestion-du-temps" },
         ],
     },
-    "ef-inator": {
+    "if-inator": {
         techniques: [
             { label: "Angular", slug: "angular" },
             { label: "Spring Boot", slug: "spring-boot" },
             { label: "Docker", slug: "docker" },
-            { label: "SQL", slug: "sql" },
+            { label: "MYSQL", slug: "mysql" },
         ],
         comportementales: [
             { label: "Résilience", slug: "resilience" },
@@ -92,9 +51,23 @@ const projetToCompetences: Record<string, {
             { label: "Gestion du temps", slug: "gestion-du-temps" },
         ],
     },
+    "fitness-inator": {
+        techniques: [{ label: "TypeScript", slug: "typescript" }],
+        comportementales: [
+            { label: "Autonomie", slug: "autonomie" },
+            { label: "Gestion du temps", slug: "gestion-du-temps" },
+        ],
+    },
+    "portfolio-inator": {
+        techniques: [
+            { label: "TypeScript", slug: "typescript" },
+            { label: "MYSQL", slug: "mysql" },
+        ],
+        comportementales: [{ label: "Adaptabilité", slug: "adaptabilite" }],
+    },
 };
 
-const sections: { key: keyof NonNullable<GitHubRepo["readme"]>; label: string }[] = [
+const sections: { key: keyof Projet; label: string }[] = [
     { key: "presentation", label: "Présentation" },
     { key: "objectifs", label: "Objectifs" },
     { key: "etapes", label: "Étapes" },
@@ -104,64 +77,94 @@ const sections: { key: keyof NonNullable<GitHubRepo["readme"]>; label: string }[
     { key: "regard_critique", label: "Regard critique" },
 ];
 
-const TemplateProjet = ({ repo }: Props) => {
-    console.log('TemplateProjet repo.name =', repo.name);
+const fadeUp = {
+    hidden: { opacity: 0, y: 32 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" as const },
+    },
+};
 
+const TemplateProjet = ({ repo, projet }: Props) => {
     const slugProjet = repo.name.toLowerCase();
-    const competences = projetToCompetences[slugProjet] ?? { techniques: [], comportementales: [] };
+    const competences = projetToCompetences[slugProjet] ?? {
+        techniques: [],
+        comportementales: [],
+    };
 
-    console.log('Compétences trouvées =', competences);
     return (
-        <section>
-            <h2 className="text-center uppercase">{repo.name}</h2>
+        <>
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: "easeOut" }}>
+                <svg viewBox="0 0 1560 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={repo.name} style={{ width: "100%", height: "auto", display: "block" }} preserveAspectRatio="xMidYMid meet" >
+                    <rect width="1560" height="420" fill="#F7F1E8" />
 
-            {sections.map(({ key, label }) => {
-                const content = repo.readme?.[key];
-                if (!content) return null;
+                    <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fontSize="150" fontWeight="900" letterSpacing="-10" fill="#E8E0DA" opacity="0.9" >
+                        {repo.name.toUpperCase()}
+                    </text>
 
-                console.log("content : " + content);
+                    <text x="50%" y="60%" textAnchor="middle" dominantBaseline="middle" fontSize="100" fontWeight="900" letterSpacing="-6" fill="#411222" >
+                        {repo.name.toUpperCase()}
+                    </text>
+                </svg>
+            </motion.div>
 
-                return (
-                    <article key={key} className="py-5">
-                        <h3>{label} :</h3>
-                        <p className="py-5 text-justify whitespace-pre-line">{content}</p>
-                    </article>
-                );
-            })}
+            <section className="mb-30">
+                {projet &&
+                    sections.map(({ key, label }) => {
+                        const content = projet[key] as string | null;
+                        if (!content) return null;
 
-            <article className="py-10">
-                <h3>Compétences liées :</h3>
+                        return (
+                            <motion.article
+                                key={key}
+                                className="py-5"
+                                variants={fadeUp}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.15 }}
+                            >
+                                <h3>{label} :</h3>
+                                <p className="py-5 text-justify whitespace-pre-line">{content}</p>
+                            </motion.article>
+                        );
+                    })}
 
                 {competences.techniques.length > 0 && (
                     <div className="py-5">
-                        <p>Technique :</p>
-                        <div className="flex flex-wrap">
+                        <p>Techniques :</p>
+                        <div className="flex flex-wrap pt-5">
                             {competences.techniques.map(({ label, slug }) => (
-                                <Link key={slug} href={`/competences/${slug}`} className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
+                                <Link
+                                    key={slug}
+                                    href={`/competences/${slug}`}
+                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable"
+                                >
                                     {label}
                                 </Link>
                             ))}
                         </div>
                     </div>
-                )
-                }
+                )}
 
-                {
-                    competences.comportementales.length > 0 && (
-                        <div className="py-2">
-                            <p>Comportementales :</p>
-                            <div className="flex flex-wrap">
-                                {competences.comportementales.map(({ label, slug }) => (
-                                    <Link key={slug} href={`/competences/${slug}`} className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable">
-                                        {label}
-                                    </Link>
-                                ))}
-                            </div>
+                {competences.comportementales.length > 0 && (
+                    <div className="py-2">
+                        <p>Comportementales :</p>
+                        <div className="flex flex-wrap pt-5">
+                            {competences.comportementales.map(({ label, slug }) => (
+                                <Link
+                                    key={slug}
+                                    href={`/competences/${slug}`}
+                                    className="border px-5 py-3 m-1 bg-[#f7f4e7] hover:bg-black hover:text-[#f7f4e7] hoverable"
+                                >
+                                    {label}
+                                </Link>
+                            ))}
                         </div>
-                    )
-                }
-            </article >
-        </section >
+                    </div>
+                )}
+            </section>
+        </>
     );
 };
 

@@ -1,25 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { CompetenceDetailData } from "@/app/types";
-
-// Imports SVG techniques
-import js from "@/public/svg/competences_tech/js.svg";
-import ts from "@/public/svg/competences_tech/ts.svg";
-import py from "@/public/svg/competences_tech/py.svg";
-import sql from "@/public/svg/competences_tech/sql.svg";
-import nosql from "@/public/svg/competences_tech/nosql.svg";
-import angular from "@/public/svg/competences_tech/angular.svg";
-import spring_boot from "@/public/svg/competences_tech/spring_boot.svg";
-import docker from "@/public/svg/competences_tech/docker.svg";
-
-// Imports SVG comportementales
-import adaptabilite from "@/public/svg/competences_comp/adaptabilite.svg";
-import autonomie from "@/public/svg/competences_comp/autonomie.svg";
-import discipline from "@/public/svg/competences_comp/discipline.svg";
-import gestion_du_temps from "@/public/svg/competences_comp/gestion_du_temps.svg";
-import planification from "@/public/svg/competences_comp/planification.svg";
-import priorisation from "@/public/svg/competences_comp/priorisation.svg";
-import resilience from "@/public/svg/competences_comp/resilience.svg";
+import * as motion from "motion/react-client";
 
 interface Props {
     data: CompetenceDetailData;
@@ -30,26 +11,7 @@ interface Projet {
     slug: string;
 }
 
-// Map slug → SVG importé
-const competenceImages: Record<string, string> = {
-    // Techniques
-    "javascript": js,
-    "typescript": ts,
-    "python": py,
-    "sql": sql,
-    "nosql": nosql,
-    "angular": angular,
-    "spring-boot": spring_boot,
-    "docker": docker,
-    // Comportementales
-    "adaptabilite": adaptabilite,
-    "autonomie": autonomie,
-    "discipline": discipline,
-    "gestion-du-temps": gestion_du_temps,
-    "planification": planification,
-    "priorisation": priorisation,
-    "resilience": resilience,
-};
+
 
 function toSlug(nom: string): string {
     return nom
@@ -61,26 +23,134 @@ function toSlug(nom: string): string {
 }
 
 const competenceTechToProjet: Record<string, Projet[]> = {
-    "javascript": [{ label: "Log-inator", slug: "log-inator" }, { label: "Fitness-inator", slug: "fitness-inator" }],
-    "typescript": [{ label: "Fitness-inator", slug: "fitness-inator" }, { label: "Portfolio-inator", slug: "porfolio-inator" }],
-    "python": [{ label: "Password-inator 2", slug: "password-inator-2" }],
-    "sql": [{ label: "Portfolio-inator", slug: "porfolio-inator" }],
-    "nosql": [{ label: "Diet-inator", slug: "diet-inator" }],
-    "angular": [{ label: "PMT-inator", slug: "pmt-inator" }, { label: "Shopwise-inator", slug: "shopwise-inator" }, { label: "EF-inator", slug: "ef-inator" }],
-    "spring-boot": [{ label: "PMT-inator", slug: "pmt-inator" }, { label: "Shopwise-inator", slug: "shopwise-inator" }, { label: "EF-inator", slug: "ef-inator" }],
-    "docker": [{ label: "PMT-inator", slug: "pmt-inator" }, { label: "Shopwise-inator", slug: "shopwise-inator" }, { label: "EF-inator", slug: "ef-inator" }, { label: "Portfolio-inator", slug: "porfolio-inator" }],
+    typescript: [
+        { label: "Fitness-inator", slug: "fitness-inator" },
+        { label: "Portfolio-inator", slug: "portfolio-inator" },
+    ],
+    mysql: [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "Shopwise-inator", slug: "shopwise-inator" },
+        { label: "IF-inator", slug: "if-inator" },
+    ],
+    angular: [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "Shopwise-inator", slug: "shopwise-inator" },
+        { label: "IF-inator", slug: "if-inator" },
+    ],
+    "spring-boot": [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "Shopwise-inator", slug: "shopwise-inator" },
+        { label: "IF-inator", slug: "if-inator" },
+    ],
+    docker: [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "Shopwise-inator", slug: "shopwise-inator" },
+        { label: "IF-inator", slug: "if-inator" },
+        { label: "Portfolio-inator", slug: "portfolio-inator" },
+    ],
 };
 
 const competenceCompToProjet: Record<string, Projet[]> = {
-    "planification": [{ label: "Log-inator", slug: "log-inator" }, { label: "PMT-inator", slug: "pmt-inator" }],
-    "priorisation": [{ label: "Log-inator", slug: "log-inator" }],
-    "autonomie": [{ label: "Fitness-inator", slug: "fitness-inator" }],
-    "gestion-du-temps": [{ label: "Fitness-inator", slug: "fitness-inator" }],
-    "discipline": [{ label: "Password-inator 2", slug: "password-inator-2" }],
-    "adaptabilite": [{ label: "Portfolio-inator", slug: "porfolio-inator" }],
-    "resilience": [{ label: "Diet-inator", slug: "diet-inator" }],
+    planification: [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "ShopWise-inator", slug: "shopwise-inator" },
+        { label: "InnotechFusion-inator", slug: "if-inator" },
+    ],
+    priorisation: [
+        { label: "PMT-inator", slug: "pmt-inator" },
+        { label: "ShopWise-inator", slug: "shopwise-inator" },
+    ],
+    autonomie: [
+        { label: "Fitness-inator", slug: "fitness-inator" },
+        { label: "Portfolio-inator", slug: "portfolio-inator" },
+        { label: "InnotechFusion-inator", slug: "if-inator" },
+    ],
+    "gestion-du-temps": [
+        { label: "InnotechFusion-inator", slug: "if-inator" },
+        { label: "Fitness-inator", slug: "fitness-inator" },
+    ],
+    discipline: [
+        { label: "Portfolio-inator", slug: "portfolio-inator" },
+        { label: "Fitness-inator", slug: "fitness-inator" },
+    ],
+    adaptabilite: [
+        { label: "Portfolio-inator", slug: "portfolio-inator" },
+        { label: "ShopWise-inator", slug: "shopwise-inator" },
+    ],
+    resilience: [
+        { label: "InnotechFusion-inator", slug: "if-inator" },
+        { label: "PMT-inator", slug: "pmt-inator" },
+    ],
 };
 
+// Mapping nom détecté dans le texte → slug du projet
+const PROJET_MENTIONS: { pattern: RegExp; label: string; slug: string }[] = [
+    { pattern: /Project Management Tool/gi, label: "PMT-inator", slug: "pmt-inator" },
+    { pattern: /PMT/g, label: "PMT-inator", slug: "pmt-inator" },
+    { pattern: /ShopWise/gi, label: "Shopwise-inator", slug: "shopwise-inator" },
+    { pattern: /InnotechFusion/gi, label: "IF-inator", slug: "if-inator" },
+    { pattern: /Fitness-inator/gi, label: "Fitness-inator", slug: "fitness-inator" },
+    { pattern: /Portfolio-inator/gi, label: "Portfolio-inator", slug: "portfolio-inator" },
+];
+
+// Découpe le texte en segments texte/lien
+function parsePreuves(text: string): React.ReactNode[] {
+    const segments: { text: string; slug?: string; label?: string }[] = [
+        { text },
+    ];
+
+    for (const { pattern, label, slug } of PROJET_MENTIONS) {
+        const result: typeof segments = [];
+        for (const seg of segments) {
+            if (seg.slug) {
+                result.push(seg);
+                continue;
+            }
+            const parts = seg.text.split(pattern);
+            const matches = seg.text.match(pattern) ?? [];
+            parts.forEach((part, i) => {
+                if (part) result.push({ text: part });
+                if (matches[i]) result.push({ text: matches[i], slug, label });
+            });
+        }
+        segments.length = 0;
+        segments.push(...result);
+    }
+
+    return segments.map((seg, i) =>
+        seg.slug ? (
+            <Link
+                key={i}
+                href={`/realisations/${seg.slug}`}
+                className=" underline underline-offset-2 hover:text-[#411222] transition-colors duration-200 hoverable"
+            >
+                {seg.text}
+            </Link>
+        ) : (
+            <span key={i}>{seg.text}</span>
+        )
+    );
+}
+
+// ── Variants ──────────────────────────────────────────────────────────
+const fadeUp = {
+    hidden: { opacity: 0, y: 32 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" as const },
+    },
+};
+
+// Viewport commun à tous les articles — amount: 0 + margin négatif bas
+// pour éviter le déclenchement prématuré sur mobile Android/Chrome
+const articleViewport = {
+    once: true,
+    amount: 0,
+    margin: "0px 0px -50px 0px",
+} as const;
+
+// ── Composant ──────────────────────────────────────────────────────────
 const TemplateCompetence = ({ data }: Props) => {
     const isTechnique = data.type === "technique";
 
@@ -110,62 +180,126 @@ const TemplateCompetence = ({ data }: Props) => {
         ? (competenceTechToProjet[slugNom] ?? [])
         : (competenceCompToProjet[slugNom] ?? []);
 
-    const image = competenceImages[slugNom] ?? null;
-
     return (
-        <section>
-            {image && (
-                <div className="flex justify-center">
-                    <Image
-                        src={image}
-                        alt={nom}
-                        width={120}
-                        height={120}
-                        draggable={false}
-                        priority
-                    />
-                </div>
-            )}
+        <>
+            {/* Hero SVG animé au chargement */}
+            <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+                <svg
+                    viewBox="0 0 1560 420"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label={nom}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    <rect width="1560" height="420" fill="#F7F1E8" />
 
-            <h2 className="text-center uppercase">{nom}</h2>
+                    <text
+                        x="50%"
+                        y="50%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontSize="150"
+                        fontWeight="900"
+                        letterSpacing="-10"
+                        fill="#E8E0DA"
+                        opacity="0.9"
+                    >
+                        {nom.toUpperCase()}
+                    </text>
 
-            <article className="py-5">
-                <h3>Définition :</h3>
-                <p className="py-5 text-justify">{definition}</p>
-            </article>
+                    <text
+                        x="50%"
+                        y="60%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontSize="100"
+                        fontWeight="900"
+                        letterSpacing="-6"
+                        fill="#411222"
+                    >
+                        {nom.toUpperCase()}
+                    </text>
+                </svg>
+            </motion.div>
 
-            <article className="py-5">
-                <h3>Mes preuves :</h3>
-                <p className="py-5 text-justify">{preuves}</p>
-            </article>
+            <section className="mb-30">
 
-            <article className="py-5">
-                <h3>Autocritique :</h3>
-                <p className="py-5 text-justify">{autocritique}</p>
-            </article>
+                <motion.article
+                    className="mb-20"
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={articleViewport}
+                >
+                    <h3 className="my-5 font-bold">-- Définition --</h3>
+                    <p className="text-justify whitespace-pre-line">{definition}</p>
+                </motion.article>
 
-            <article className="py-5">
-                <h3>Évolution :</h3>
-                <p className="py-5 text-justify">{evolution}</p>
-            </article>
+                <motion.article
+                    className="my-20"
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={articleViewport}
+                >
+                    <h3 className="my-5 font-bold">-- Mes preuves --</h3>
+                    <p className="text-justify whitespace-pre-line">{parsePreuves(preuves)}</p>
+                </motion.article>
 
-            {projetsLies.length > 0 && (
-                <article className="py-10">
-                    <h3>Projet{projetsLies.length > 1 ? "s liés" : " lié"} :</h3>
-                    <div className="flex flex-wrap py-2">
-                        {projetsLies.map(({ label, slug }) => (
-                            <Link
-                                key={slug}
-                                className="border px-5 py-3 m-1 hover:bg-black hover:text-[#f7f4e7] hoverable"
-                                href={`/projets/${slug}`}
-                            >
-                                {label}
-                            </Link>
-                        ))}
-                    </div>
-                </article>
-            )}
-        </section>
+                <motion.article
+                    className="my-20"
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={articleViewport}
+                >
+                    <h3 className="my-5 font-bold">-- Autocritique --</h3>
+                    <p className="text-justify whitespace-pre-line">{autocritique}</p>
+                </motion.article>
+
+                <motion.article
+                    className="my-20"
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={articleViewport}
+                >
+                    <h3 className="my-5 font-bold">-- Évolution --</h3>
+                    <p className="text-justify whitespace-pre-line">{evolution}</p>
+                </motion.article>
+
+                {projetsLies.length > 0 && (
+                    <motion.article
+                        className="my-20"
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={articleViewport}
+                    >
+                        <h3 className="my-5 font-bold">
+                            -- Projet{projetsLies.length > 1 ? "s liés" : " lié"} --
+                        </h3>
+
+                        <div className="flex flex-wrap gap-2">
+                            {projetsLies.map(({ label, slug }) => (
+                                <Link
+                                    key={slug}
+                                    className="border px-5 py-3 hover:bg-black hover:text-[#f7f4e7] hoverable"
+                                    href={`/realisations/${slug}`}
+                                >
+                                    {label}
+                                </Link>
+                            ))}
+                        </div>
+                    </motion.article>
+                )}
+            </section>
+        </>
     );
 };
 

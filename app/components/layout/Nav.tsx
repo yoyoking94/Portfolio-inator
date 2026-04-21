@@ -4,8 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { AnimatePresence, motion } from "motion/react";
 import logo from "@/public/yovish-space-logo-black.svg";
-
+import type { Variants } from "motion/react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,26 +21,20 @@ type NavItem = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const navItems: NavItem[] = [
-  {
-    label: "Présentation",
-    href: "/presentation",
-  },
+  { label: "Présentation", href: "/presentation" },
   {
     label: "Compétences",
     href: "/competences",
     children: [
       {
         label: "Techniques",
-        href: "techniques",
+        href: "",
         children: [
+          { label: "Typescript", href: "/competences/typescript" },
           { label: "Angular", href: "/competences/angular" },
           { label: "Spring Boot", href: "/competences/spring-boot" },
+          { label: "MYSQL", href: "/competences/mysql" },
           { label: "Docker", href: "/competences/docker" },
-          { label: "Javascript", href: "/competences/javascript" },
-          { label: "Typescript", href: "/competences/typescript" },
-          { label: "Python", href: "/competences/python" },
-          { label: "Sql", href: "/competences/sql" },
-          { label: "NoSql", href: "/competences/noSql" },
         ],
       },
       {
@@ -64,18 +59,83 @@ const navItems: NavItem[] = [
     children: [
       { label: "PMT-inator", href: "/realisations/pmt-inator" },
       { label: "Shopwise-inator", href: "/realisations/shopwise-inator" },
-      { label: "EF-inator", href: "/realisations/ef-inator" },
-      { label: "Log-inator", href: "/realisations/log-inator" },
+      { label: "IF-inator", href: "/realisations/if-inator" },
       { label: "Fitness-inator", href: "/realisations/fitness-inator" },
-      { label: "Password-inator", href: "/realisations/password-inator-2" },
-      { label: "Portfolio-inator", href: "/realisations/porfolio-inator" },
-      { label: "Diet-inator", href: "/realisations/diet-inator" },
+      { label: "Portfolio-inator", href: "/realisations/portfolio-inator" },
     ],
   },
   { label: "Contact", href: "/contact" },
 ];
 
-// ─── Desktop : sous-menu niveau 2 (flyout latéral) ────────────────────────────
+// ─── Variants ─────────────────────────────────────────────────────────────────
+
+const dropdownVariants: Variants = {
+  hidden: { opacity: 0, y: -6, scale: 0.98 },
+  visible: {
+    opacity: 1, y: 0, scale: 1,
+    transition: { duration: 0.18, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0, y: -6, scale: 0.98,
+    transition: { duration: 0.14, ease: "easeIn" as const },
+  },
+};
+
+const flyoutVariants: Variants = {
+  hidden: { opacity: 0, x: -6 },
+  visible: {
+    opacity: 1, x: 0,
+    transition: { duration: 0.16, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0, x: -6,
+    transition: { duration: 0.12, ease: "easeIn" as const },
+  },
+};
+
+const mobileMenuVariants: Variants = {
+  hidden: { opacity: 0, y: -8 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.22, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0, y: -8,
+    transition: { duration: 0.16, ease: "easeIn" as const },
+  },
+};
+
+const accordionVariants: Variants = {
+  hidden: { opacity: 0, height: 0 },
+  visible: {
+    opacity: 1, height: "auto",
+    transition: { duration: 0.25, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0, height: 0,
+    transition: { duration: 0.18, ease: "easeIn" as const },
+  },
+};
+
+const listVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } },
+  exit: {},
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: -4 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.15, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0, y: -4,
+    transition: { duration: 0.1 },
+  },
+};
+
+// ─── Desktop : sous-menu niveau 2 (flyout latéral) ───────────────────────────
 
 type FlyoutItemProps = {
   item: SubItem & { children?: SubItem[] };
@@ -95,7 +155,6 @@ const FlyoutItem = ({ item }: FlyoutItemProps) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Détecte si le sous-menu dépasse à droite après ouverture
   useEffect(() => {
     if (open && submenuRef.current) {
       const rect = submenuRef.current.getBoundingClientRect();
@@ -105,42 +164,66 @@ const FlyoutItem = ({ item }: FlyoutItemProps) => {
 
   if (!item.children) {
     return (
-      <li>
-        <a href={item.href} className="flex items-center gap-1 px-4 py-2 whitespace-nowrap hover:bg-white/10 hoverable">
+      <motion.li variants={itemVariants}>
+        <a
+          href={item.href}
+          className="flex items-center gap-1 px-4 py-2 whitespace-nowrap hover:bg-white/10 hoverable"
+        >
           {item.label}
         </a>
-      </li>
+      </motion.li>
     );
   }
 
   return (
-    <li ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => { setOpen(false); setOpenLeft(false); }}>
+    <motion.li
+      ref={ref}
+      className="relative"
+      variants={itemVariants}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => { setOpen(false); setOpenLeft(false); }}
+    >
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1 px-4 py-2 w-full whitespace-nowrap hover:bg-white/10 hoverable"
       >
         {item.label}
-        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${openLeft ? "rotate-180" : ""}`} />
-      </button>
-      {open && (
-        <ul
-          ref={submenuRef}
-          className={`absolute top-0 min-w-[180px] shadow-lg bg-[#e6e3d7] border border-white/10 z-50 ${openLeft ? "right-full" : "left-full"
-            }`}
+        <motion.span
+          animate={{ rotate: open ? (openLeft ? 0 : 90) : 0 }}
+          transition={{ duration: 0.2 }}
+          className="ml-auto"
         >
-          {item.children.map((child) => (
-            <li key={child.label}>
-              <a href={child.href} className="flex items-center px-4 py-2 whitespace-nowrap hover:bg-white/10 hoverable">
-                {child.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
+          <ChevronRight className="w-4 h-4" />
+        </motion.span>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            ref={submenuRef}
+            variants={flyoutVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className={`absolute top-0 min-w-[180px] shadow-lg bg-[#e6e3d7] border border-white/10 z-50 ${openLeft ? "right-full" : "left-full"
+              }`}
+          >
+            {item.children.map((child) => (
+              <li key={child.label}>
+                <a
+                  href={child.href}
+                  className="flex items-center px-4 py-2 whitespace-nowrap hover:bg-white/10 hoverable"
+                >
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </motion.li>
   );
 };
-
 
 // ─── Desktop : menu principal ─────────────────────────────────────────────────
 
@@ -161,7 +244,10 @@ const DesktopMenuItem = ({ item }: DesktopMenuItemProps) => {
   if (!item.children) {
     return (
       <li>
-        <Link href={item.href ?? "/"} className="px-4 py-2 flex items-center hover:bg-white/10 hoverable">
+        <Link
+          href={item.href ?? "/"}
+          className="px-4 py-2 flex items-center hover:bg-white/10 hoverable"
+        >
           {item.label}
         </Link>
       </li>
@@ -169,31 +255,45 @@ const DesktopMenuItem = ({ item }: DesktopMenuItemProps) => {
   }
 
   return (
-    <li ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <li
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <div className="flex items-center hover:bg-white/10">
-        {/* ── Label cliquable ── */}
         <Link href={item.href ?? "/"} className="px-4 py-2 hoverable">
           {item.label}
         </Link>
-        {/* ── Chevron séparé pour ouvrir le sous-menu ── */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="pr-3 py-2 hoverable"
-        >
-          <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
+        <button onClick={() => setOpen((v) => !v)} className="pr-3 py-2 hoverable">
+          <motion.span
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            style={{ display: "flex" }}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </motion.span>
         </button>
       </div>
-      {open && (
-        <ul className="absolute top-full left-0 min-w-[200px] shadow-lg bg-[#e6e3d7] border border-white/10 z-40 py-1">
-          {item.children.map((child) => (
-            <FlyoutItem key={child.label} item={child} />
-          ))}
-        </ul>
-      )}
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            variants={{ ...dropdownVariants, ...listVariants }}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute top-full left-0 min-w-[200px] shadow-lg bg-[#e6e3d7] border border-white/10 z-40 py-1"
+          >
+            {item.children.map((child) => (
+              <FlyoutItem key={child.label} item={child} />
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </li>
   );
 };
-
 
 // ─── Mobile : item récursif accordéon ────────────────────────────────────────
 
@@ -208,28 +308,47 @@ const MobileItem = ({ item, depth = 0 }: MobileItemProps) => {
 
   return (
     <li>
-      <div className={`flex items-center ${depth > 0 ? "pl-" + depth * 4 : ""}`} style={{ paddingLeft: depth * 16 }}>
-        {hasChildren ? (
+      <div className="flex items-center" style={{ paddingLeft: depth * 16 }}>
+        <Link
+          href={item.href ?? "/"}
+          className="flex-1 py-2 px-3 hover:bg-white/10 hoverable"
+        >
+          {item.label}
+        </Link>
+
+        {hasChildren && (
           <button
             onClick={() => setOpen((v) => !v)}
-            className="flex items-center gap-2 w-full py-2 px-3 hover:bg-white/10 hoverable"
+            aria-label={`${open ? "Fermer" : "Ouvrir"} ${item.label}`}
+            className="px-3 py-2 hover:bg-white/10 hoverable flex-shrink-0"
           >
-            {item.label}
-            <ChevronDown className={`w-4 h-4 transition-transform flex-shrink-0 ${open ? "rotate-180" : ""}`} />
+            <motion.span
+              animate={{ rotate: open ? 180 : 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              style={{ display: "flex" }}
+            >
+              <ChevronDown className="w-4 h-4" />
+            </motion.span>
           </button>
-        ) : (
-          <Link href={item.href ?? "/"} className="flex items-center gap-2 w-full py-2 px-3 hover:bg-white/10 hoverable">
-            {item.label}
-          </Link>
         )}
       </div>
-      {hasChildren && open && (
-        <ul className="border-l border-white/20 ml-4">
-          {(item as NavItem).children!.map((child) => (
-            <MobileItem key={child.label} item={child} depth={depth + 1} />
-          ))}
-        </ul>
-      )}
+
+      <AnimatePresence initial={false}>
+        {hasChildren && open && (
+          <motion.ul
+            variants={accordionVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ overflow: "hidden" }}
+            className="border-l border-white/20 ml-4"
+          >
+            {(item as NavItem).children!.map((child) => (
+              <MobileItem key={child.label} item={child} depth={depth + 1} />
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </li>
   );
 };
@@ -242,7 +361,7 @@ const Nav = () => {
   return (
     <nav className="sticky top-0 relative z-50 flex items-center justify-between w-full h-[8dvh] px-6 border-b bg-[#f7f4e7]">
 
-      {/* ── Logo à gauche ── */}
+      {/* Logo */}
       <Link href="/" className="flex items-center h-full py-1">
         <Image
           alt="logo"
@@ -255,34 +374,66 @@ const Nav = () => {
         />
       </Link>
 
-      {/* ── Desktop : liens à droite ── */}
+      {/* Desktop */}
       <ul className="hidden lg:flex items-center gap-1">
         {navItems.map((item) => (
           <DesktopMenuItem key={item.label} item={item} />
         ))}
       </ul>
 
-      {/* ── Mobile : bouton hamburger à droite ── */}
+      {/* Mobile : hamburger avec animation icône */}
       <div className="lg:hidden flex items-center">
         <button
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
           className="p-2 hover:bg-white/10"
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <AnimatePresence mode="wait" initial={false}>
+            {mobileOpen ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                style={{ display: "flex" }}
+              >
+                <X className="w-6 h-6" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="open"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                style={{ display: "flex" }}
+              >
+                <Menu className="w-6 h-6" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
       </div>
 
-      {/* ── Mobile : panneau pleine largeur ── */}
-      {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-screen bg-[#e6e3d7] border-t border-white/10 shadow-lg">
-          <ul className="py-2 px-3">
-            {navItems.map((item) => (
-              <MobileItem key={item.label} item={item} />
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Mobile : panneau animé */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="lg:hidden absolute top-full left-0 w-screen bg-[#e6e3d7] border-t border-white/10 shadow-lg"
+          >
+            <ul className="py-2 px-3">
+              {navItems.map((item) => (
+                <MobileItem key={item.label} item={item} />
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </nav>
   );

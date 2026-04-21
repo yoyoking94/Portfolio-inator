@@ -33,7 +33,21 @@ textarea {
 }
 
 section {
-  padding: 0 10dvw;
+  padding: 0 20dvw;
+}
+
+/* Tablette (768px) */
+@media (max-width: 768px) {
+  section {
+    padding: 0 8dvw;
+  }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+  section {
+    padding: 0 5dvw;
+  }
 }
 
 p,
@@ -43,17 +57,13 @@ span {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 28px;
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 16px;
+  font-size: 20px;
 }

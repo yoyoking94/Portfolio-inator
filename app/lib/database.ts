@@ -9,7 +9,8 @@ import type {
   CompetenceTechniqueItem,
   CompetenceComportementale,
   Langue,
-  CentreInteret
+  CentreInteret,
+  Projet
 } from '../types';
 
 if (!process.env.DATABASE_URL) {
@@ -177,6 +178,33 @@ export async function getCentresInteret(): Promise<CentreInteret[]> {
     WHERE profil_id = 1
     ORDER BY ordre ASC
   ` as CentreInteret[];
+}
+
+// ==========================================
+// PROJETS
+// ==========================================
+
+// Récupère tous les projets
+export async function getProjets(): Promise<Projet[]> {
+  return await sql`
+      SELECT * FROM projets
+      WHERE profil_id = 1
+      ORDER BY ordre ASC
+  ` as Projet[];
+}
+
+export async function getProjetBySlug(slug: string): Promise<Projet | null> {
+  try {
+    const result = await sql`
+      SELECT * FROM projets
+      WHERE profil_id = 1
+        AND LOWER(nom) = ${slug.toLowerCase()}
+      LIMIT 1
+    `;
+    return (result[0] as Projet) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 // ==========================================

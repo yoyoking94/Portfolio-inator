@@ -13,40 +13,29 @@ interface Props {
 
 const CompetenceDetailPage = async ({ params }: Props) => {
     const { slug } = await params
-
     const techItem = await getCompetenceTechniqueItemBySlug(slug)
-    console.log(techItem);
-
+    const compItem = await getCompetenceComportementaleBySlug(slug)
 
     if (techItem) {
-        const data: CompetenceDetailData = {
-            type: 'technique',
-            competenceTechniqueItem: techItem,
-        }
+        const data: CompetenceDetailData = { type: 'technique', competenceTechniqueItem: techItem }
         return (
             <>
                 <CustomCursor />
                 <Nav />
-                <main className="min-h-dvh py-20">
+                <main>
                     <TemplateCompetence data={data} />
                 </main>
                 <Footer />
             </>
         )
     }
-
-    const compItem = await getCompetenceComportementaleBySlug(slug)
-
     if (compItem) {
-        const data: CompetenceDetailData = {
-            type: 'comportementale',
-            competenceComportementale: compItem,
-        }
+        const data: CompetenceDetailData = { type: 'comportementale', competenceComportementale: compItem, }
         return (
             <>
                 <CustomCursor />
                 <Nav />
-                <main className="min-h-dvh py-20">
+                <main>
                     <TemplateCompetence data={data} />
                 </main>
                 <Footer />

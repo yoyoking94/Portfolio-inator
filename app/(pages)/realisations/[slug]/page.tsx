@@ -4,28 +4,32 @@ import TemplateProjet from "@/app/components/feature/TemplateProjet"
 import Footer from "@/app/components/layout/Footer"
 import Nav from "@/app/components/layout/Nav"
 import { getGithubRepoBySlug } from "@/app/lib/github"
-import type { GitHubRepo } from "@/app/types"
+import { getProjetBySlug } from "@/app/lib/database"
 
 interface PageProps {
-    params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }
 
 const ProjetDetailPage = async ({ params }: PageProps) => {
-    const { slug } = await params
-    const repo: GitHubRepo | null = await getGithubRepoBySlug(slug)
+  const { slug } = await params
 
-    if (!repo) notFound()
+  const [repo, projet] = await Promise.all([
+    getGithubRepoBySlug(slug),
+    getProjetBySlug(slug),
+  ])
 
-    return (
-        <>
-            <CustomCursor />
-            <Nav />
-            <main className="min-h-dvh py-20">
-                <TemplateProjet repo={repo} />
-            </main>
-            <Footer />
-        </>
-    )
+  if (!repo) notFound()
+
+  return (
+    <>
+      <CustomCursor />
+      <Nav />
+      <main className="min-h-dvh">
+        <TemplateProjet repo={repo} projet={projet} />
+      </main>
+      <Footer />
+    </>
+  )
 }
 
 export default ProjetDetailPage
