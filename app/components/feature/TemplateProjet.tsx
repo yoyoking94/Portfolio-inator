@@ -118,14 +118,14 @@ const TemplateProjet = ({ repo, projet }: Props) => {
                         return (
                             <motion.article
                                 key={key}
-                                className="py-5"
+                                className="my-20"
                                 variants={fadeUp}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ once: true, amount: 0.15 }}
                             >
-                                <h3>{label} :</h3>
-                                <p className="py-5 text-justify whitespace-pre-line">{content}</p>
+                                <h3 className="my-5 font-bold">-- {label} --</h3>
+                                <p className="text-justify whitespace-pre-line">{content}</p>
                             </motion.article>
                         );
                     })}

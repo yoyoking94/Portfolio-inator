@@ -273,7 +273,7 @@ const TimelineCard = ({ item, isEven }: { item: TimelineItem; isEven: boolean })
                                         {item.realisations.map(({ label, slug }) => (
                                             <Link
                                                 key={slug}
-                                                href={`/projets/${slug}`}
+                                                href={`/realisations/${slug}`}
                                                 className="text-xs px-4 py-2 border border-current/20 opacity-60 hover:opacity-100 hoverable"
                                             >
                                                 {label}

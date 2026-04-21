@@ -11,8 +11,7 @@ interface Projet {
     slug: string;
 }
 
-
-
+// ── Utils ──────────────────────────────────────────────────────────────
 function toSlug(nom: string): string {
     return nom
         .toLowerCase()
@@ -22,32 +21,22 @@ function toSlug(nom: string): string {
         .replace(/[^a-z0-9-]/g, "");
 }
 
+// ── Data ───────────────────────────────────────────────────────────────
+const PMT_SW_IF: Projet[] = [
+    { label: "PMT-inator", slug: "pmt-inator" },
+    { label: "Shopwise-inator", slug: "shopwise-inator" },
+    { label: "IF-inator", slug: "if-inator" },
+];
+
 const competenceTechToProjet: Record<string, Projet[]> = {
     typescript: [
         { label: "Fitness-inator", slug: "fitness-inator" },
         { label: "Portfolio-inator", slug: "portfolio-inator" },
     ],
-    mysql: [
-        { label: "PMT-inator", slug: "pmt-inator" },
-        { label: "Shopwise-inator", slug: "shopwise-inator" },
-        { label: "IF-inator", slug: "if-inator" },
-    ],
-    angular: [
-        { label: "PMT-inator", slug: "pmt-inator" },
-        { label: "Shopwise-inator", slug: "shopwise-inator" },
-        { label: "IF-inator", slug: "if-inator" },
-    ],
-    "spring-boot": [
-        { label: "PMT-inator", slug: "pmt-inator" },
-        { label: "Shopwise-inator", slug: "shopwise-inator" },
-        { label: "IF-inator", slug: "if-inator" },
-    ],
-    docker: [
-        { label: "PMT-inator", slug: "pmt-inator" },
-        { label: "Shopwise-inator", slug: "shopwise-inator" },
-        { label: "IF-inator", slug: "if-inator" },
-        { label: "Portfolio-inator", slug: "portfolio-inator" },
-    ],
+    mysql: PMT_SW_IF,
+    angular: PMT_SW_IF,
+    "spring-boot": PMT_SW_IF,
+    docker: [...PMT_SW_IF, { label: "Portfolio-inator", slug: "portfolio-inator" }],
 };
 
 const competenceCompToProjet: Record<string, Projet[]> = {
@@ -83,7 +72,6 @@ const competenceCompToProjet: Record<string, Projet[]> = {
     ],
 };
 
-// Mapping nom détecté dans le texte → slug du projet
 const PROJET_MENTIONS: { pattern: RegExp; label: string; slug: string }[] = [
     { pattern: /Project Management Tool/gi, label: "PMT-inator", slug: "pmt-inator" },
     { pattern: /PMT/g, label: "PMT-inator", slug: "pmt-inator" },
@@ -93,19 +81,15 @@ const PROJET_MENTIONS: { pattern: RegExp; label: string; slug: string }[] = [
     { pattern: /Portfolio-inator/gi, label: "Portfolio-inator", slug: "portfolio-inator" },
 ];
 
-// Découpe le texte en segments texte/lien
+// ── parsePreuves ───────────────────────────────────────────────────────
 function parsePreuves(text: string): React.ReactNode[] {
-    const segments: { text: string; slug?: string; label?: string }[] = [
-        { text },
-    ];
+    type Segment = { text: string; slug?: string; label?: string };
+    let segments: Segment[] = [{ text }];
 
     for (const { pattern, label, slug } of PROJET_MENTIONS) {
-        const result: typeof segments = [];
+        const result: Segment[] = [];
         for (const seg of segments) {
-            if (seg.slug) {
-                result.push(seg);
-                continue;
-            }
+            if (seg.slug) { result.push(seg); continue; }
             const parts = seg.text.split(pattern);
             const matches = seg.text.match(pattern) ?? [];
             parts.forEach((part, i) => {
@@ -113,16 +97,13 @@ function parsePreuves(text: string): React.ReactNode[] {
                 if (matches[i]) result.push({ text: matches[i], slug, label });
             });
         }
-        segments.length = 0;
-        segments.push(...result);
+        segments = result;
     }
 
     return segments.map((seg, i) =>
         seg.slug ? (
-            <Link
-                key={i}
-                href={`/realisations/${seg.slug}`}
-                className=" underline underline-offset-2 hover:text-[#411222] transition-colors duration-200 hoverable"
+            <Link key={i} href={`/realisations/${seg.slug}`}
+                className="underline underline-offset-2 hover:text-[#411222] transition-colors duration-200 hoverable"
             >
                 {seg.text}
             </Link>
@@ -132,95 +113,60 @@ function parsePreuves(text: string): React.ReactNode[] {
     );
 }
 
-// ── Variants ──────────────────────────────────────────────────────────
+// ── Variants ───────────────────────────────────────────────────────────
 const fadeUp = {
     hidden: { opacity: 0, y: 32 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut" as const },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-// Viewport commun à tous les articles — amount: 0 + margin négatif bas
-// pour éviter le déclenchement prématuré sur mobile Android/Chrome
-const articleViewport = {
-    once: true,
-    amount: 0,
-    margin: "0px 0px -50px 0px",
-} as const;
+const articleViewport = { once: true, amount: 0, margin: "0px 0px -50px 0px" } as const;
+
+// ── Sections ───────────────────────────────────────────────────────────
+const SECTIONS = [
+    { key: "definition" as const, label: "Définition" },
+    { key: "preuves" as const, label: "Mes preuves" },
+    { key: "autocritique" as const, label: "Autocritique" },
+    { key: "evolution" as const, label: "Évolution" },
+];
 
 // ── Composant ──────────────────────────────────────────────────────────
 const TemplateCompetence = ({ data }: Props) => {
     const isTechnique = data.type === "technique";
-
-    const nom = isTechnique
-        ? data.competenceTechniqueItem!.nom
-        : data.competenceComportementale!.nom;
-
-    const definition = isTechnique
-        ? data.competenceTechniqueItem!.definition
-        : data.competenceComportementale!.definition;
-
-    const preuves = isTechnique
-        ? data.competenceTechniqueItem!.preuves
-        : data.competenceComportementale!.preuves;
-
-    const autocritique = isTechnique
-        ? data.competenceTechniqueItem!.autocritique
-        : data.competenceComportementale!.autocritique;
-
-    const evolution = isTechnique
-        ? data.competenceTechniqueItem!.evolution
-        : data.competenceComportementale!.evolution;
+    const item = isTechnique ? data.competenceTechniqueItem! : data.competenceComportementale!;
+    const { nom, definition, preuves, autocritique, evolution } = item;
 
     const slugNom = toSlug(nom);
-
-    const projetsLies: Projet[] = isTechnique
+    const projetsLies = isTechnique
         ? (competenceTechToProjet[slugNom] ?? [])
         : (competenceCompToProjet[slugNom] ?? []);
 
+    const contenu: Record<string, React.ReactNode> = {
+        definition,
+        preuves: parsePreuves(preuves),
+        autocritique,
+        evolution,
+    };
+
     return (
         <>
-            {/* Hero SVG animé au chargement */}
             <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
             >
-                <svg
-                    viewBox="0 0 1560 420"
-                    xmlns="http://www.w3.org/2000/svg"
-                    role="img"
-                    aria-label={nom}
+                <svg viewBox="0 0 1560 420" xmlns="http://www.w3.org/2000/svg"
+                    role="img" aria-label={nom}
                     style={{ width: "100%", height: "auto", display: "block" }}
                     preserveAspectRatio="xMidYMid meet"
                 >
                     <rect width="1560" height="420" fill="#F7F1E8" />
-
-                    <text
-                        x="50%"
-                        y="50%"
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontSize="150"
-                        fontWeight="900"
-                        letterSpacing="-10"
-                        fill="#E8E0DA"
-                        opacity="0.9"
+                    <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle"
+                        fontSize="150" fontWeight="900" letterSpacing="-10" fill="#E8E0DA" opacity="0.9"
                     >
                         {nom.toUpperCase()}
                     </text>
-
-                    <text
-                        x="50%"
-                        y="60%"
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontSize="100"
-                        fontWeight="900"
-                        letterSpacing="-6"
-                        fill="#411222"
+                    <text x="50%" y="60%" textAnchor="middle" dominantBaseline="middle"
+                        fontSize="100" fontWeight="900" letterSpacing="-6" fill="#411222"
                     >
                         {nom.toUpperCase()}
                     </text>
@@ -228,69 +174,31 @@ const TemplateCompetence = ({ data }: Props) => {
             </motion.div>
 
             <section className="mb-30">
-
-                <motion.article
-                    className="mb-20"
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={articleViewport}
-                >
-                    <h3 className="my-5 font-bold">-- Définition --</h3>
-                    <p className="text-justify whitespace-pre-line">{definition}</p>
-                </motion.article>
-
-                <motion.article
-                    className="my-20"
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={articleViewport}
-                >
-                    <h3 className="my-5 font-bold">-- Mes preuves --</h3>
-                    <p className="text-justify whitespace-pre-line">{parsePreuves(preuves)}</p>
-                </motion.article>
-
-                <motion.article
-                    className="my-20"
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={articleViewport}
-                >
-                    <h3 className="my-5 font-bold">-- Autocritique --</h3>
-                    <p className="text-justify whitespace-pre-line">{autocritique}</p>
-                </motion.article>
-
-                <motion.article
-                    className="my-20"
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={articleViewport}
-                >
-                    <h3 className="my-5 font-bold">-- Évolution --</h3>
-                    <p className="text-justify whitespace-pre-line">{evolution}</p>
-                </motion.article>
-
-                {projetsLies.length > 0 && (
+                {SECTIONS.map(({ key, label }, i) => (
                     <motion.article
-                        className="my-20"
+                        key={key}
+                        className={i === 0 ? "mb-20" : "my-20"}
                         variants={fadeUp}
                         initial="hidden"
                         whileInView="visible"
                         viewport={articleViewport}
                     >
+                        <h3 className="my-5 font-bold">-- {label} --</h3>
+                        <p className="text-justify whitespace-pre-line">{contenu[key]}</p>
+                    </motion.article>
+                ))}
+
+                {projetsLies.length > 0 && (
+                    <motion.article className="my-20" variants={fadeUp}
+                        initial="hidden" whileInView="visible" viewport={articleViewport}
+                    >
                         <h3 className="my-5 font-bold">
                             -- Projet{projetsLies.length > 1 ? "s liés" : " lié"} --
                         </h3>
-
                         <div className="flex flex-wrap gap-2">
                             {projetsLies.map(({ label, slug }) => (
-                                <Link
-                                    key={slug}
+                                <Link key={slug} href={`/realisations/${slug}`}
                                     className="border px-5 py-3 hover:bg-black hover:text-[#f7f4e7] hoverable"
-                                    href={`/realisations/${slug}`}
                                 >
                                     {label}
                                 </Link>
