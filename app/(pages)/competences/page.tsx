@@ -22,27 +22,39 @@ import priorisation from "@/public/svg/competences_comp/priorisation.svg";
 import resilience from "@/public/svg/competences_comp/resilience.svg";
 
 const techGroups = [
-    { label: "Langages", items: [{ alt: "Typescript", src: ts, slug: "typescript" }] },
+    { label: "Langages", items: [{ alt: "Typescript", src: ts, slug: "typescript", level: 85 }] },
     {
         label: "Frameworks",
         items: [
-            { alt: "Angular", src: angular, slug: "angular" },
-            { alt: "Spring Boot", src: spring_boot, slug: "spring-boot" },
+            { alt: "Angular", src: angular, slug: "angular", level: 75 },
+            { alt: "Spring Boot", src: spring_boot, slug: "spring-boot", level: 70 },
         ],
     },
-    { label: "Bases de données", items: [{ alt: "MYSQL", src: mysql, slug: "mysql" }] },
-    { label: "Outils & Infrastructure", items: [{ alt: "Docker", src: docker, slug: "docker" }] },
+    { label: "Bases de données", items: [{ alt: "MYSQL", src: mysql, slug: "mysql", level: 80 }] },
+    { label: "Outils & Infrastructure", items: [{ alt: "Docker", src: docker, slug: "docker", level: 60 }] },
 ];
 
 const competencesComportementales = [
-    { alt: "Adaptabilité", src: adaptabilite, slug: "adaptabilite" },
-    { alt: "Autonomie", src: autonomie, slug: "autonomie" },
-    { alt: "Discipline", src: discipline, slug: "discipline" },
-    { alt: "Gestion du temps", src: gestion_du_temps, slug: "gestion-du-temps" },
-    { alt: "Planification", src: planification, slug: "planification" },
-    { alt: "Priorisation", src: priorisation, slug: "priorisation" },
-    { alt: "Résilience", src: resilience, slug: "resilience" },
+    { alt: "Adaptabilité", src: adaptabilite, slug: "adaptabilite", level: 90 },
+    { alt: "Autonomie", src: autonomie, slug: "autonomie", level: 85 },
+    { alt: "Discipline", src: discipline, slug: "discipline", level: 80 },
+    { alt: "Gestion du temps", src: gestion_du_temps, slug: "gestion-du-temps", level: 75 },
+    { alt: "Planification", src: planification, slug: "planification", level: 78 },
+    { alt: "Priorisation", src: priorisation, slug: "priorisation", level: 82 },
+    { alt: "Résilience", src: resilience, slug: "resilience", level: 88 },
 ];
+
+const SkillLevel = ({ level }: { level: number }) => (
+    <div className="w-16 h-1.5 bg-black/10 rounded-full overflow-hidden mt-1">
+        <motion.div
+            className="h-full bg-[#411222] rounded-full"
+            initial={{ width: 0 }}
+            whileInView={{ width: `${level}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+        />
+    </div>
+);
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -125,33 +137,16 @@ const CompetencesPage = () => {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
                     >
-                        {techGroups.flatMap(({ items }) => items).map(({ alt, src, slug }) => (
+                        {techGroups.flatMap(({ items }) => items).map(({ alt, src, slug, level }) => (
                             <motion.div key={slug} variants={itemVariants}>
-                                <Link
-                                    href={`/competences/${slug}`}
-                                    className="flex flex-col items-center gap-1 group hoverable"
-                                >
-                                    <motion.div
-                                        whileHover={{ y: -4, scale: 1.05 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                    >
-                                        <Image
-                                            alt={alt}
-                                            src={src}
-                                            width={64}
-                                            draggable={false}
-                                            loading="eager"
-                                            priority
-                                        />
+                                <Link href={`/competences/${slug}`} className="flex flex-col items-center gap-1 group hoverable">
+                                    <motion.div whileHover={{ y: -4, scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+                                        <Image alt={alt} src={src} width={64} draggable={false} loading="eager" priority />
                                     </motion.div>
-
-                                    <motion.span
-                                        className="text-[10px] uppercase tracking-wider opacity-40 group-hover:opacity-70 transition-opacity duration-200"
-                                        whileHover={{ opacity: 0.7 }}
-                                    >
+                                    <motion.span className="text-[10px] uppercase tracking-wider opacity-40 group-hover:opacity-70 transition-opacity duration-200" whileHover={{ opacity: 0.7 }}>
                                         {alt}
                                     </motion.span>
+                                    <SkillLevel level={level} />
                                 </Link>
                             </motion.div>
                         ))}
